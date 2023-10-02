@@ -1,0 +1,33 @@
+<div class="wh-full contenedor  animate__animated animate__bounceIn">
+  <div class="caja">
+    <div class="form-container ">
+      <h1>Bienvenido</h1>
+      <form [formGroup]="logInForm">
+
+
+        <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="username">
+          <mat-hint>email</mat-hint>
+        </mat-form-field>
+        </p>
+        <p>
+
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        </p>
+
+
+        <button mat-raised-button color ="green" style="background-color: greenyellow ;" (click)="logIn()">LogIn</button>
+      </form>
+      <span style="margin-top: 25px;">Are you new? &nbsp;<a [routerLink]="['/signUp']">SignUp</a></span>
+    </div>
+    <h1>Hola Mundo</h1>
+  </div>
+</div>
