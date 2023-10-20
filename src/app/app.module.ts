@@ -9,10 +9,13 @@ import {JwtInterceptorInterceptor} from "./token/interceptor/jwt-interceptor.int
 import {PagesModule} from "./components/pages.module";
 import {ToastrModule} from "ngx-toastr";
 import {FormsModule} from "@angular/forms";
+import {SignUpComponent} from "./components/sign-up/sign-up.component";
+import {LoginComponent} from "./components/login/login.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,

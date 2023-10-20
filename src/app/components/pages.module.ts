@@ -10,11 +10,19 @@ import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {SignUpComponent} from "./sign-up/sign-up.component";
+import {AgmCoreModule} from "@agm/core";
+import {RoutesComponent} from "./routes/routes.component";
+import {MatListModule} from "@angular/material/list";
+import {MatCardModule} from "@angular/material/card";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatLegacyChipsModule} from "@angular/material/legacy-chips";
 
 
 const Pages=[
   LoginComponent,
   SignUpComponent,
+  RoutesComponent,
 
 ]
 
@@ -30,7 +38,15 @@ const Pages=[
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
     MatTableModule,
+    MatListModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAW_y-F8u-3-pOIwQQmygMAGlK8386tEYo'
+    }),
+    Ng2SearchPipeModule,
+    MatChipsModule,
+    MatLegacyChipsModule
 
   ],
   exports:[Pages]

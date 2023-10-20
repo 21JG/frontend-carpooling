@@ -1,0 +1,28 @@
+agm-map{
+  height: 800px ;
+}
+
+.routes-card {
+  z-index: 10;
+  position: absolute;
+  margin: 25px;
+  right: 0;
+  backdrop-filter: blur(16px) contrast(.8);
+  background-color: rgba(255 255 255 /62%);
+}
+
+/*.small_mat_button {*/
+/*    button {*/
+/*        width: 54px;*/
+/*        height: 36px;*/
+/*        min-width: unset!important;*/
+/*        mat-icon {*/
+/*          font-size: 24px;*/
+/*        }*/
+/*    }*/
+/*}*/
+
+
+
+
+

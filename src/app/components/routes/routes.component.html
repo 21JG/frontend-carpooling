@@ -1,0 +1,39 @@
+<div>
+  <agm-map>
+  </agm-map>
+  <mat-card class="routes-card">
+    <button class="small_mat_button" (click)="minimize_routeslist = !minimize_routeslist" mat-button style="position: absolute;right: 0; top: 0;">
+      <mat-icon [hidden]="minimize_routeslist" class="mat-18">expand_less</mat-icon>
+      <mat-icon [hidden]="!minimize_routeslist" class="mat-18">expand_more</mat-icon>
+    </button>
+    <mat-card-title style="font-size: 32px; margin-top: 16px;">Vehiculos</mat-card-title>
+    <div [hidden]="minimize_routeslist" style="margin-top: -16px;">
+      <mat-form-field appearance="standard">
+        <mat-label>Buscar vehiculos</mat-label>
+        <input matInput placeholder="ABC123..." [(ngModel)]="search">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>Rutas</mat-hint>
+      </mat-form-field>
+      <mat-chip-list>
+        <mat-chip *ngIf="selectedRoute" [removable]="true" (removed)="removeSelected()">
+          <mat-icon color="primary" matSuffix>push_pin</mat-icon>
+          {{selectedRoute.pointsOfInterest}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <br>
+      </mat-chip-list>
+      <mat-list>
+        <mat-list-item *ngFor="let device of GPSData | filter:search; let i = index" [hidden]="device.licensePlate === 'UNDEFINED'" (mouseover)="isChangedBlock[i] = true" (mouseout)="isChangedBlock[i] = false">
+          <button mat-button (click)="centerViewToDevice(device)" style="width: 100%;position: absolute; text-align: left; margin-left: -25px;">
+            <mat-icon class="green-icon" *ngIf="device.ignition === 'On' || device.cameraStatus === 'ACTIVE' else deviceIsOff" style="margin-right: 8px;">fiber_manual_record</mat-icon>
+            <ng-template #deviceIsOff><mat-icon class="red-icon" style="margin-right: 8px;">fiber_manual_record</mat-icon></ng-template>
+
+            <mat-icon *ngIf="device.vehicle === 'BIKE'" matSuffix>two_wheeler</mat-icon>
+            <mat-icon *ngIf="device.vehicle !== 'BIKE'" matSuffix>directions_car</mat-icon> {{device.licensePlate}} <mat-icon style="margin-left: 16px;" [hidden]="!isChangedBlock[i]" color="primary" matSuffix>push_pin</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card>
+</div>
+
