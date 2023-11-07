@@ -1,4 +1,4 @@
-export interface PointOfInterest{
+export interface PointOfInterestModel{
   id: string;
   name:string
 

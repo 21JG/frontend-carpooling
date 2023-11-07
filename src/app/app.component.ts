@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {userModel} from "./models/user.model";
+import {CustomerModel} from "./models/customer.model";
 import {LoginService} from "./api/login-service/login.service";
 
 @Component({
@@ -9,12 +9,13 @@ import {LoginService} from "./api/login-service/login.service";
 })
 export class AppComponent implements OnInit{
   title = 'frontend-carpooling';
-  userInfo?:userModel;
+
+  userInfo?:CustomerModel;
 
   constructor(private auth:LoginService) {}
 
   ngOnInit():void {
-    this.auth.userProfile.subscribe(
+    this.auth.customerProfile.subscribe(
       (data)=>{
         this.userInfo = data;
       });

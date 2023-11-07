@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {driverModel} from "../../models/driver.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {VehicleModel} from "../../models/vehicle.model";
-import {userModel} from "../../models/user.model";
+import {userModel} from "../../models/customer.model";
 
 @Injectable({
   providedIn: 'root'

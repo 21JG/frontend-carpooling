@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
-import {driverModel} from "../../models/driver.model";
+import {DriverModel} from "../../models/driver.model";
 
 
 @Injectable({
@@ -14,32 +14,36 @@ export class driverService{
   constructor(private http: HttpClient) {}
   private cadena = '';
 
-  driver:BehaviorSubject<driverModel> = new BehaviorSubject<driverModel>(
+  driver:BehaviorSubject<DriverModel> = new BehaviorSubject<DriverModel>(
     {
       id: 'string',
-      dni: 'string',
-      firstName: 'string',
-      secondName: 'string',
-      firstSurname: 'string',
-      secondSurname: 'string',
-      password: 'string',
-      phone: 0,
-      companyEmail: 'string',
-      licenseNumber: 'string',
+      customer: {
+        id: 'string',
+        dni: 'string',
+        firstName: 'string',
+        secondName: 'string',
+        firstSurname: 'string',
+        secondSurname: 'string',
+        password: 'string',
+        phone: 0,
+        email: 'string',
+        rol:0,
+      },
+      licenseNumber: 0,
       authorizedCategory: {
         id: 'string',
         category: 'string',
-        validity: 'string',
+        expiration: new Date(),
       }
     }
   );
 
-  createDriver(driverForm:driverModel){
+  createDriver(driverForm:DriverModel){
     return this.http.post<any>('api/v1/carpooling/driver/create',driverForm);
   }
 
   getDriver(){
-    return this.http.get<driverModel>('api/v1/carpooling/driver/get')
+    return this.http.get<DriverModel>('api/v1/carpooling/driver/get')
   }
 
 

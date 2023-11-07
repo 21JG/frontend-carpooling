@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {JwtInterceptorInterceptor} from "./token/interceptor/jwt-interceptor.interceptor";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptorInterceptor } from './token/interceptor/jwt-interceptor.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 import {PagesModule} from "./components/pages.module";
-import {ToastrModule} from "ngx-toastr";
-import {FormsModule} from "@angular/forms";
-import {SignUpComponent} from "./components/sign-up/sign-up.component";
-import {LoginComponent} from "./components/login/login.component";
+import {LayoutComponent} from "./components/layout/layout.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    LayoutComponent,
 
   ],
   imports: [

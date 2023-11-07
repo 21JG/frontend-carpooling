@@ -1,18 +1,12 @@
+import {CustomerModel} from "./customer.model";
 
-export interface driverModel {
-  id?: string;
-  dni?: string;
-  firstName?: string;
-  secondName?: string;
-  firstSurname?: string;
-  secondSurname?: string;
-  password?: string;
-  phone?: number;
-  companyEmail?: string;
-  licenseNumber?: string;
+export interface DriverModel {
+  id?:string
+  licenseNumber?:number
   authorizedCategory?: {
     id?: string;
     category?: string;
-    validity: string;
+    expiration: Date;
   };
+  customer:CustomerModel
 }

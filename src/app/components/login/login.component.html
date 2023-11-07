@@ -8,7 +8,7 @@
         <p>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput type="text" formControlName="username">
+          <input matInput type="text" formControlName="email">
           <mat-hint>email</mat-hint>
         </mat-form-field>
         </p>
@@ -24,9 +24,9 @@
         </p>
 
 
-        <button mat-raised-button color ="green" style="background-color: greenyellow ;" (click)="logIn()">LogIn</button>
+        <button mat-raised-button color ="green" style="background-color: #1eabab ;" (click)="logIn()">LogIn</button>
       </form>
-      <span style="margin-top: 25px;">Are you new? &nbsp;<a [routerLink]="['/signUp']">SignUp</a></span>
+      <span style="margin-top: 25px;">Nuevo Por Aquí? &nbsp;<a [routerLink]="['/signup']">Registrate</a></span>
     </div>
     <h1>Hola Mundo</h1>
   </div>

@@ -1,13 +1,16 @@
-import {driverModel} from "./driver.model";
-import {PointOfInterest} from "./pointofinterest.model";
+import {DriverModel} from "./driver.model";
+import {PointOfInterestModel} from "./pointofinterest.model";
+import {PositionModel} from "./position.model";
+import {StatusModel} from "./status.model";
 
 export interface RouteModel{
   id: string;
-  owner: driverModel ;
+  owner: DriverModel ;
   capacity: number;
-  pointsOfInterest: PointOfInterest[];
-  position:string;
+  pointsOfInterest: PointOfInterestModel[];
+  position:PositionModel[];
   routeTime: Date;
+  routeStatus:StatusModel;
 }
 
 

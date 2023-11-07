@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
-import { userModel } from '../../models/user.model';
+import { CustomerModel } from '../../models/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import {LoginService} from "../../api/login-service/login.service";
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent {
   }
   ngOnInit(): void {
     this.logInForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.email]],
+      companyemail: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
     this.tokenService.logout();
@@ -30,13 +30,13 @@ export class LoginComponent {
 
   logIn(){
     this.tokenService.logIn(this.logInForm.value).subscribe({
-      next: (user: userModel) => {
-        // user.email = this.logInForm.get(['username'])?.value;
-        // this.tokenService.saveUserToLocal(user);
+      next: (customer: CustomerModel) => {
+        customer.companyEmail = this.logInForm.get(['companyEmail'])?.value;
+        this.tokenService.saveUserToLocal(customer);
 
 
         //ruta para la que debe navegar si esta validado
-        this.router.navigate(['/ruta de lo que siga ']);
+        this.router.navigate(['/routes']);
       },
       error: (error) => {
         this.toast.error("Invalid Credentials")

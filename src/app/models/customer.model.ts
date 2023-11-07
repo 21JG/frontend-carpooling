@@ -1,4 +1,4 @@
-export interface userModel {
+export interface CustomerModel {
   id?: string;
   dni?: string;
   firstName?: string;
@@ -6,8 +6,8 @@ export interface userModel {
   firstSurname?: string;
   secondSurname?: string;
   password?: string;
-  phone?: number;
   companyEmail?: string;
-  token?:string;
+  phone?: number;
+  rol?:number;
 }
 

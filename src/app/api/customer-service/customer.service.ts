@@ -1,19 +1,20 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
-import {userModel} from "../../models/user.model";
+import {CustomerModel} from "../../models/customer.model";
+import {DOMAIN_URL} from "../../../environments/domain.prod";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService{
+export class CustomerService {
 
 
   constructor(private http: HttpClient) {}
   private cadena = '';
 
-  driver:BehaviorSubject<userModel> = new BehaviorSubject<userModel>(
+  driver:BehaviorSubject<CustomerModel> = new BehaviorSubject<CustomerModel>(
     {
       id: 'string',
       dni: 'string',
@@ -24,16 +25,15 @@ export class UserService{
       password: 'string',
       phone: 0,
       companyEmail: 'string',
-      token: 'string',
     }
   );
 
-  createDriver(userForm:userModel){
-    return this.http.post<any>('api/v1/carpooling/customer/create',userForm);
+  createCustomer(customerForm:CustomerModel){
+    return this.http.post<any>(`${DOMAIN_URL}/api/v1/carpooling/customer`,customerForm);
   }
 
-  getDriver(){
-    return this.http.get<userModel>('api/v1/carpooling/customer/get')
+  getCustomer(){
+    return this.http.get<CustomerModel>(`${DOMAIN_URL}/api/v1/carpooling/customer/get`)
   }
 
 

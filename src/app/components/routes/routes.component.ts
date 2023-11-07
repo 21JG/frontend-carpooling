@@ -10,20 +10,4 @@ import {RouteModel} from "../../models/route.model";
 
 export class RoutesComponent{
 
-  public isChangedBlock = {};
-  public minimize_routeslist:boolean = false
-  public search: string
-  public GPSData: Array<RouteModel> = []
-  public popDevice: RouteModel
-  public selectedRoute: RouteModel
-
-
-
-
-
-
-  public centerViewToDevice(route:RouteModel) {
-  }
-  public removeSelected() {
-  }
 }

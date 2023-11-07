@@ -1,10 +1,10 @@
-import {userModel} from "./user.model";
+import {CustomerModel} from "./customer.model";
 
-export interface RouterequestModel {
+export interface RouteRequestModel {
   id?: string;
   serviceRequestTime?: string;
   serviceRequestDate?: string;
-  customer?: userModel;
+  customer?: CustomerModel;
   status?: string;
   routeRequestOrigin?: string;
   routeRequestEnd?: string;

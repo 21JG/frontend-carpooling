@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {LoginService} from "../../api/login-service/login.service";
 import {ToastrService} from "ngx-toastr";
+import {CustomerService} from "../../api/customer-service/customer.service";
 
 
 @Component({
@@ -13,24 +13,25 @@ import {ToastrService} from "ngx-toastr";
 
 export class SignUpComponent implements OnInit{
 
-  public signUpForm !: FormGroup
+  public CustomerForm !: FormGroup
   hidePassword: boolean;
-  constructor(private formBuilder: FormBuilder,  private router: Router, private tokenService:LoginService, private toast:ToastrService){}
+  constructor(private formBuilder: FormBuilder,  private router: Router, private customerService:CustomerService, private toast:ToastrService){}
 
   ngOnInit():void{
-    this.signUpForm = this.formBuilder.group({
+    this.CustomerForm = this.formBuilder.group({
       dni:['',Validators.required],
       firstName:['',Validators.required],
-      secondName:['',Validators.required],
+      secondName:[''],
       firstSurname:['',Validators.required],
       secondSurname:['',Validators.required],
       password:['',Validators.required],
       phone:['',Validators.required],
-      companyEmail:['',[Validators.required,Validators.email]],
+      companyEmail:['', Validators.required, Validators.email],
     })
+
   }
   signUp(){
-    this.tokenService.signUp(this.signUpForm.value)
+    this.customerService.createCustomer(this.CustomerForm.value)
       .subscribe(res=>{
         this.toast.success("Signed Up successfully")
         this.router.navigate(['/login'])

@@ -2,7 +2,7 @@
   <div class="caja">
     <div class="form-container ">
       <h1>Registro</h1>
-      <form [formGroup]="signUpForm" >
+      <form [formGroup]="CustomerForm" >
         <mat-form-field>
           <mat-label>DNI</mat-label>
           <input matInput formControlName="dni" type="text">
@@ -24,11 +24,13 @@
           <input matInput formControlName="secondSurname" type="text">
         </mat-form-field>
 
-<!--        cambiar al especifico de email-->
         <mat-form-field>
-          <mat-label>Correo</mat-label>
-          <input matInput formControlName="companyEmail" type="text">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="companyEmail" type="email">
+<!--          <mat-error *ngIf="signUpForm.get('email').hasError('required')">Email is required</mat-error>-->
+<!--          <mat-error *ngIf="signUpForm.get('email').hasError('email')">Please enter a valid email address</mat-error>-->
         </mat-form-field>
+
         <mat-form-field>
           <mat-label>Enter your password</mat-label>
           <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">
@@ -36,12 +38,11 @@
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
-<!-- cambiar a formato celular-->
         <mat-form-field>
           <mat-label>Celular</mat-label>
-          <input matInput formControlName="phone" type="number">
+          <span matPrefix>+57 &nbsp;</span>
+          <input matInput formControlName="phone" type="tel" matInput placeholder="320-555-1234">
         </mat-form-field>
-
 
         <button mat-raised-button color="terciario" style="background-color: blue;" (click)="signUp()">Sign Up</button>
       </form>
