@@ -1,0 +1,36 @@
+<!--<body class="body" *ngIf="!mostrarOpciones && !iniciarSesion">-->
+<body>
+<header>
+  <nav class="navbar bg-light">
+    <div>
+      <img src="assets/img/Logo.jpg" alt="Logo Carpooling" class="logo">
+
+    </div>
+
+    <div>
+      <a routerLink="/login" class="btn btn-success">Iniciar Sesión</a>
+      <a routerLink="/signup" class="btn btn-success">Registrarse</a>
+    </div>
+
+  </nav>
+</header>
+<section>
+  <div class="portada">
+    <div class="row">
+      <div class="texPortada">
+        <h1 class="title">Carpooling<br>UCO</h1>
+        <p>Es una aplicación web que <br> permite comunicar <br> conductores con pasajeros
+          y <br> brindar mayor accesibilidad a <br> las rutas de interes para el usuario</p>
+
+
+      </div>
+      <div class="imgPortada">
+        <img src="assets/img/pagina1.gif" alt="" class="imgPortada">
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+<!--<app-option *ngIf="mostrarOpciones" (emitirOpciones)="regresarDeOpciones()"></app-option>-->
+<!--<app-login *ngIf="iniciarSesion" (emitirIniciarSesion)="regresarDeInicioSesion()"></app-login>-->

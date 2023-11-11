@@ -1,0 +1,59 @@
+<body class="Fondo">
+<section>
+  <div class="container">
+    <img src="assets/img/Logo.jpg" alt="" class="check">
+  </div>
+
+        <form [formGroup]="CustomerForm" >
+          <h1 class="registrarse">Registrarse</h1>
+          <mat-form-field>
+            <mat-label>DNI</mat-label>
+            <input matInput formControlName="dni" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="firstName" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Segundo nombre</mat-label>
+            <input matInput formControlName="secondName" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Primer Apellido </mat-label>
+            <input matInput formControlName="firstSurname" type="text">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Segundo Apellido</mat-label>
+            <input matInput formControlName="secondSurname" type="text">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="companyEmail" type="email">
+            <mat-error *ngIf="CustomerForm.get('companyEmail').hasError('required')">Email is required</mat-error>
+            <mat-error *ngIf="CustomerForm.get('companyEmail').hasError('companyEmail')">Please enter a valid email address</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Celular</mat-label>
+            <span matPrefix>+57 &nbsp;</span>
+            <input matInput formControlName="phone" type="tel" matInput placeholder="320-555-1234">
+          </mat-form-field>
+
+                  <button mat-raised-button color="terciario" style="background-color: blue;" (click)="signUpPassenger()">Sign Up</button>
+
+          <div> <a routerLink="/intro" class="btn btn-success">Volver</a> </div>
+
+  </form>
+
+
+</section>
+
+</body>

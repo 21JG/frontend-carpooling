@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {driverModel} from "../../models/driver.model";
 import {BehaviorSubject, Observable} from "rxjs";
 import {VehicleModel} from "../../models/vehicle.model";
-import {userModel} from "../../models/customer.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +16,26 @@ export class VehicleService {
     id: 'string',
     plate: 'string',
     capacity: 0,
-    owner: {},
+    owner: {
+      id: 'string',
+      customer: {
+        id: 'string',
+        dni: 'string',
+        firstName: 'string',
+        secondName: 'string',
+        firstSurname: 'string',
+        secondSurname: 'string',
+        password: 'string',
+        phone: 0,
+        companyEmail: 'string',
+      },
+      licenseNumber: 0,
+      authorizedCategory: {
+        id: 'string',
+        category: 'string',
+        expiration: new Date(),
+      }
+    },
   });
 
   createVehicle(vehicleForm:VehicleModel){

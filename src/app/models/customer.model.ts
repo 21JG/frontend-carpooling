@@ -8,6 +8,5 @@ export interface CustomerModel {
   password?: string;
   companyEmail?: string;
   phone?: number;
-  rol?:number;
 }
 

@@ -1,0 +1,86 @@
+<body class="Fondo">
+<section>
+  <div class="container">
+    <img src="assets/img/Logo.jpg" alt="" class="check">
+  </div>
+
+  <form [formGroup]="DriverForm" >
+    <h1 class="registrarse">Registrarse</h1>
+    <mat-form-field>
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="firstName" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Segundo nombre</mat-label>
+      <input matInput formControlName="secondName" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Primer Apellido </mat-label>
+      <input matInput formControlName="firstSurname" type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Segundo Apellido</mat-label>
+      <input matInput formControlName="secondSurname" type="text">
+    </mat-form-field>
+
+    <input class="controls" type="text" name="licencia" placeholder="Numero Licencia" formControlName="licenseNumber">
+    <div *ngIf="DriverForm.controls['licenseNumber'].invalid && DriverForm.controls['licenseNumber'].touched">
+      Este campo es obligatorio.
+    </div>
+    <select class="controls" name="catLicencia" placeholder="Categoria Licencia" formControlName="category">
+      <option value="" selected="true">Seleccione...</option>
+      <option *ngFor="let category of categorias" [value]="category">{{category}}</option>
+    </select>
+    <div
+      *ngIf="DriverForm.controls['category'].invalid && DriverForm.controls['category'].touched">
+      Este campo es obligatorio.
+    </div>
+    <legend>Fecha Expiracion</legend>
+    <input class="controls" type="date" name="fechaExpiracion" formControlName="expiration">
+
+    <div
+      *ngIf="DriverForm.controls['expiration'].invalid && DriverForm.controls['expiration'].touched">
+      Este campo es obligatorio.
+    </div>
+
+
+
+
+
+
+
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="companyEmail" type="email">
+      <mat-error *ngIf="DriverForm.get('companyEmail').hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="DriverForm.get('companyEmail').hasError('companyEmail')">Please enter a valid email address</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Celular</mat-label>
+      <span matPrefix>+57 &nbsp;</span>
+      <input matInput formControlName="phone" type="tel" matInput placeholder="320-555-1234">
+    </mat-form-field>
+
+    <button mat-raised-button color="terciario" style="background-color: blue;" (click)="signUpDriver()">Sign Up</button>
+
+    <div> <a routerLink="/intro" class="btn btn-success">Volver</a> </div>
+
+  </form>
+
+
+</section>
+
+</body>

@@ -36,5 +36,15 @@
 <!--    </div>-->
 <!--  </mat-card>-->
 <!--</div>-->
-<agm-map>
-</agm-map>
+<div style="height: 100%;width: 100%; margin-top: 30px">
+<app-map class="agm-map">
+
+</app-map>
+  <div class="mat-card routes-card">
+    <span><strong style="color: white;font-size: x-large;">Routes</strong></span>
+    <div class="route-item" *ngFor="let route of routes">
+      <span style="width: 50%">{{route.pointsOfInterest[0].name}}-{{route.pointsOfInterest[1].name}}</span>
+       &nbsp;&nbsp;{{route.routeCapacity}}&nbsp;seats
+    </div>
+  </div>
+</div>

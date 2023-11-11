@@ -1,5 +1,5 @@
 export interface PointOfInterestModel{
-  id: string;
+  id?: string;
   name:string
 
 }

@@ -15,6 +15,10 @@ export class LoginComponent {
   public logInForm !: FormGroup
   state: string = 'none';
   hidePassword = true;
+  public showMessage = false;
+  public mensaje: string = '';
+
+
 
 
   constructor(private formBuilder: FormBuilder,  private router: Router, private tokenService:LoginService, private toast:ToastrService) {
@@ -22,7 +26,7 @@ export class LoginComponent {
   }
   ngOnInit(): void {
     this.logInForm = this.formBuilder.group({
-      companyemail: ['', [Validators.required, Validators.email]],
+      companyEmail: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     })
     this.tokenService.logout();
@@ -39,6 +43,8 @@ export class LoginComponent {
         this.router.navigate(['/routes']);
       },
       error: (error) => {
+        this.showMessage = true;
+        this.mensaje = error.error.messages[0].content;
         this.toast.error("Invalid Credentials")
       }
     })

@@ -9,6 +9,7 @@ import { JwtInterceptorInterceptor } from './token/interceptor/jwt-interceptor.i
 import { ToastrModule } from 'ngx-toastr';
 import {PagesModule} from "./components/pages.module";
 import {LayoutComponent} from "./components/layout/layout.component";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {LayoutComponent} from "./components/layout/layout.component";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    SharedModule,
     HttpClientModule,
     PagesModule,
     FormsModule,

@@ -1,14 +1,33 @@
-agm-map{
-  height: 100%;
+.agm-map{
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
+
 
 .routes-card {
   z-index: 10;
   position: absolute;
   margin: 25px;
-  right: 0;
-  backdrop-filter: blur(16px) contrast(.8);
-  background-color: rgba(255 255 255 /62%);
+  top: 11px;
+  right: 0px;
+  width: 35%;
+  height: 45%;
+  background-color: forestgreen;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+}
+.route-item{
+  background-color: #ffffffe8;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 3px;
+  font-size: small;
+  padding: 10px;
+  display: flex;
 }
 
 /*.small_mat_button {*/
