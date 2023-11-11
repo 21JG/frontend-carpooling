@@ -15,7 +15,7 @@ import {AgmCoreModule} from "@agm/core";
     CommonModule,
 
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBGw40obkq0anZtQ55y7Dl12bns85J-wXw'
+      apiKey: ''
     }),
   ]
 })
