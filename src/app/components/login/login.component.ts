@@ -4,6 +4,15 @@ import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { CustomerModel } from '../../models/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import {LoginService} from "../../api/login-service/login.service";
+import {deleteCookie} from "../../token/utils/cooke.utils";
+
+function setCookie(name: string, value: string, options: { expires: number }): void {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + options.expires * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,11 +43,10 @@ export class LoginComponent {
 
   logIn(){
     this.tokenService.logIn(this.logInForm.value).subscribe({
-      next: (customer: CustomerModel) => {
-        customer.companyEmail = this.logInForm.get(['companyEmail'])?.value;
-        this.tokenService.saveUserToLocal(customer);
-
-
+      next: (response: any) => {
+        const token = response.data.token;
+        // const token = response.data && response.data.length > 0 ? response.data[0].token : null;
+        setCookie('token',token,{expires:8});
         //ruta para la que debe navegar si esta validado
         this.router.navigate(['/routes']);
       },
@@ -49,5 +57,7 @@ export class LoginComponent {
       }
     })
   }
+
+
 
 }

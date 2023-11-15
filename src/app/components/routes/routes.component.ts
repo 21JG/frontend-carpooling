@@ -1,5 +1,8 @@
 import {Component} from "@angular/core";
 import {RouteModel} from "../../models/route.model";
+import {LoginService} from "../../api/login-service/login.service";
+import {Router} from "@angular/router";
+import {deleteCookie} from "../../token/utils/cooke.utils";
 
 
 @Component({
@@ -9,6 +12,9 @@ import {RouteModel} from "../../models/route.model";
 })
 
 export class RoutesComponent{
+
+  constructor(private router: Router,private login: LoginService) {
+  }
 
   routes:RouteModel[] = [
     {routeCapacity:2,pointsOfInterest:[{name:"Rionegro"},{name:"La Ceja"}]},
@@ -20,4 +26,8 @@ export class RoutesComponent{
     {routeCapacity:4,pointsOfInterest:[{name:"Alejandría"},{name:"San Carlos"}]},
   ]
 
+  onLogout():void{
+    deleteCookie('token')
+    this.router.navigate(['/login']);
+  }
 }

@@ -7,6 +7,7 @@ import {LayoutComponent} from "./components/layout/layout.component";
 import {IntroComponent} from "./components/intro/intro.component";
 import {OptionComponent} from "./components/option/option.component";
 import {PassengerSignUpComponent} from "./components/passenger-sign-up/passenger-sign-up.component";
+import {userGuard} from "./token/guard/user-guard.guard";
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       {
         path:'routes',
         component:RoutesComponent,
+        canActivate: [userGuard],
       },
       {
         path:'intro',
