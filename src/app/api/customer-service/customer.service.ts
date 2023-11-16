@@ -27,6 +27,7 @@ export class CustomerService {
       password: 'string',
       phone: 0,
       companyEmail: 'string',
+      rol:0,
     }
   );
 

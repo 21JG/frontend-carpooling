@@ -8,6 +8,7 @@ import {IntroComponent} from "./components/intro/intro.component";
 import {OptionComponent} from "./components/option/option.component";
 import {PassengerSignUpComponent} from "./components/passenger-sign-up/passenger-sign-up.component";
 import {userGuard} from "./token/guard/user-guard.guard";
+import {RouteDetailComponent} from "./components/route-detail/routedetail.component";
 
 const routes: Routes = [
   {
@@ -44,6 +45,11 @@ const routes: Routes = [
       {
         path:'signup',
         component:OptionComponent,
+      },
+      {
+        path:'routedetail/:id',
+        component:RouteDetailComponent,
+        canActivate: [userGuard],
       }
     ]
   }

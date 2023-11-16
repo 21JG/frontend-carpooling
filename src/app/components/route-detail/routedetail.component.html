@@ -1,0 +1,80 @@
+<header>
+  <nav class="navbar bg-light">
+    <div>
+      <img src="assets/img/Logo.jpg" alt="Logo Carpooling" class="logo">
+    </div>
+
+    <div class="">
+        <a (click)="onLogout()" class="btn btn-success" >LogOut</a>
+    </div>
+
+  </nav>
+</header>
+<div style="height: 100%; width: 100%; margin-top: 30px; position: relative;">
+  <div style="position: relative; height: 100%;">
+    <app-map class="agm-map"></app-map>
+  </div>
+
+<!--  <div class="mat-card routes-card"-->
+<!--       [ngClass]="{'route-list': routeDetail.length > 5, 'route-grid': routeDetail.length <= 5}"-->
+<!--       [ngStyle]="{'min-height.px': 60, 'height.px': routeDetail.length * 135}">-->
+<!--    <span><strong style="color: white; font-size: x-large;">Routes</strong></span>-->
+<!--    <mat-progress-bar *ngIf="loading" mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>-->
+
+<!--    <div class="route-item" *ngFor="let route of routeDetail">-->
+<!--    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">-->
+<!--      <div>-->
+<!--        <span style="display: flex; align-items: center;">-->
+<!--          Plate: <strong>{{ route.driverVehicle.vehicle.plate }}</strong>-->
+<!--          Capacity: {{ route.routeCapacity }}-->
+<!--        <mat-icon class="person-icon" style="margin-left: 5px;">person</mat-icon>-->
+<!--        </span>-->
+<!--        <br />-->
+<!--        <span style="display: flex; align-items: center;">-->
+<!--          Puntos de Inters: {{ route.pointsOfInterest }}-->
+<!--        </span>-->
+<!--      </div>-->
+<!--    </span>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="mat-card routes-card"
+       [ngClass]="{'route-list': routeDetail.length > 5, 'route-grid': routeDetail.length <= 5}"
+       [ngStyle]="{'min-height.px': 60, 'height.px': routeDetail.length * 135}">
+    <span><strong style="color: white; font-size: x-large;">Detalle de Ruta</strong></span>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>
+
+    <!-- Display global information outside the *ngFor loop -->
+    <div *ngIf="routeDetail.length > 0">
+      <div style="display: flex; align-items: center;">
+        Plate: <strong>{{ globalPlate }}</strong>  --
+        Capacity: {{ globalCapacity }}
+        <mat-icon class="person-icon" style="margin-right: 5px;">person</mat-icon>
+      </div>
+      <br>
+      <strong>Puntos de interes:</strong>
+    </div>
+
+<!--    <mat-list *ngFor="let route of routeDetail">-->
+<!--      <ng-container *ngIf="route.pointsOfInterest && route.pointsOfInterest.length > 0">-->
+<!--        <mat-list-item *ngFor="let pointOfInterest of route.pointsOfInterest">-->
+<!--          {{ pointOfInterest }}-->
+<!--        </mat-list-item>-->
+<!--      </ng-container>-->
+<!--    </mat-list>-->
+    <div class="route-item" *ngFor="let route of routeDetail">
+  <span style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+    <div *ngFor="let pointOfInterest of route.pointsOfInterest; let last = last">
+      <span style="display: flex; align-items: center;">
+        {{ pointOfInterest }}
+      </span>
+      <div *ngIf="!last" class="divider"></div> <!-- Divider line after each point of interest, except the last one -->
+    </div>
+  </span>
+    </div>
+
+
+
+  </div>
+
+</div>

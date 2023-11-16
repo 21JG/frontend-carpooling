@@ -14,3 +14,9 @@ export function deleteCookie(name: string): void {
     document.cookie = `${name}=;expires=Thu, 01 Jan 1980 00:00:00 UTC;path=/;`;
   }
 }
+
+export function setCookie(name: string, value: string, options: { expires: number }): void {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + options.expires * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}

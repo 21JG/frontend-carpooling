@@ -1,12 +1,9 @@
 import {CustomerModel} from "./customer.model";
+import {AuthorizedCategoryModel} from "./authorizedcategory.model";
 
 export interface DriverModel {
   id?:string
-  licenseNumber?:number
-  authorizedCategory?: {
-    id?: string;
-    category?: string;
-    expiration: Date;
-  };
+  licenseNumber?:string
+  authorizedCategory?: AuthorizedCategoryModel
   customer:CustomerModel
 }

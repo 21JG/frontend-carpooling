@@ -25,11 +25,17 @@ export class DriverSignUpComponent implements OnInit{
 
   ngOnInit(): void {
     this.Form();
-    this.categorias.push('B1');
-    this.categorias.push('B2');
-    this.categorias.push('C1');
-    this.categorias.push('C2');
-    this.categorias.push('C3');
+
+
+    this.driverService.getAuthorizedCategory().subscribe(
+      (categorias) => {
+        this.categorias = categorias;
+      },
+      (error) => {
+        console.error('Error al obtener categorías:', error);
+      }
+    );
+
   }
 
   Form() {
@@ -42,7 +48,7 @@ export class DriverSignUpComponent implements OnInit{
       password: ['', Validators.required],
       licenseNumber: ['', [Validators.required]],
       category: ['', [Validators.required]],
-      expiration: ['', [Validators.required]],
+      // expiration: ['', [Validators.required]],
       phone: ['', Validators.required],
       companyEmail: ['', [Validators.required, Validators.email]],
 
@@ -75,7 +81,7 @@ export class DriverSignUpComponent implements OnInit{
       licenseNumber: this.DriverForm.get("licenseNumber").value,
       authorizedCategory:{
         category: this.DriverForm.get("category").value,
-        expiration: this.DriverForm.get("expiration").value,
+        // expiration: this.DriverForm.get("expiration").value,
       },
     }
     this.driverService.createDriver(driverDTO).subscribe({

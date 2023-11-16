@@ -3,9 +3,8 @@ import {DriverModel} from "./driver.model";
 import {StatusModel} from "./status.model";
 import {VehicleModel} from "./vehicle.model";
 
-export interface RouteModel{
+export interface DriverpervehicleModel{
   id?: string;
-  owner?: DriverModel ;
   vehicle?:VehicleModel;
   status?:StatusModel;
 }

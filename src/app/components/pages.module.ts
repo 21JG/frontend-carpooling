@@ -21,6 +21,8 @@ import {IntroComponent} from "./intro/intro.component";
 import {OptionComponent} from "./option/option.component";
 import {PassengerSignUpComponent} from "./passenger-sign-up/passenger-sign-up.component";
 import {SharedModule} from "../shared/shared.module";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {RouteDetailComponent} from "./route-detail/routedetail.component";
 
 
 const Pages=[
@@ -30,6 +32,7 @@ const Pages=[
   IntroComponent,
   OptionComponent,
   PassengerSignUpComponent,
+  RouteDetailComponent,
 
 ]
 
@@ -48,6 +51,7 @@ const Pages=[
     MatCardModule,
     MatTableModule,
     MatListModule,
+    MatProgressBarModule,
     Ng2SearchPipeModule,
     NgIf,
     MatChipsModule,
