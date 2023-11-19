@@ -1,10 +1,21 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {RouteModel} from "../../models/route.model";
 import {LoginService} from "../../api/login-service/login.service";
 import {Router} from "@angular/router";
 import {deleteCookie} from "../../token/utils/cooke.utils";
 import {RouteActiveModel} from "../../models/routeactive";
 import {RoutesService} from "../../api/routes-service/routes-service";
+import {MapComponent} from "../../shared/map/map.component";
+
+
+function getRandomColor(): string {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 
 @Component({
@@ -15,13 +26,14 @@ import {RoutesService} from "../../api/routes-service/routes-service";
 
 export class RoutesComponent implements OnInit{
 
+
   loading: boolean = false; // Add this line to define the loading property
 
+  @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
 
-  constructor(private router: Router,private route: RoutesService) {}
+  constructor(private router: Router,private route: RoutesService,) {}
 
   activeRoutes: RouteActiveModel[] = [];
-
   // ngOnInit(): void {
   //   this.route-detail.getActiveRoutes().subscribe(
   //     (response: any) => {
@@ -50,6 +62,7 @@ export class RoutesComponent implements OnInit{
   //     }
   //   );
   // }
+
   ngOnInit(): void {
     this.loading = true; // Set loading to true before making the API call
 
@@ -68,6 +81,21 @@ export class RoutesComponent implements OnInit{
           });
 
           console.log('Processed Routes:', this.activeRoutes);
+
+          if (this.mapComponent) {
+            this.activeRoutes.forEach((route, index) => {
+              const color = getRandomColor();
+              const markerLetter = String.fromCharCode(65 + index);
+
+              this.mapComponent.drawRoute(
+                { lng: route.origin.longitude, lat: route.origin.latitude, title: 'Origin' },
+                { lat: route.destination.latitude, lng: route.destination.longitude, title: 'Destination' },
+                color,
+                markerLetter
+              );
+            });
+          }
+
         } else {
           console.error('Invalid data structure in the response:', response);
         }
@@ -86,7 +114,6 @@ export class RoutesComponent implements OnInit{
   getRouteDetail(id:string):void{
     this.router.navigate(['/routedetail',id]);
   }
-
 
 
 
