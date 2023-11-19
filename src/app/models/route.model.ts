@@ -9,7 +9,7 @@ export interface RouteModel{
   routeCapacity: number;
   pointsOfInterest: PointOfInterestModel[];
   position?:PositionModel[];
-  routeTime?: Date;
+  routeTime?: string;
   routeStatus?:StatusModel;
 }
 

@@ -48,6 +48,7 @@ const routes: Routes = [
       },
       {
         path:'routedetail/:id',
+        // loadChildren:()=>import("src/app/components/pages.module").then(m=>m.PagesModule),
         component:RouteDetailComponent,
         canActivate: [userGuard],
       }

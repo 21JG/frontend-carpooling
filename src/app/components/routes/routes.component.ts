@@ -74,6 +74,8 @@ export class RoutesComponent implements OnInit{
       },
       (error) => {
         console.error('Error fetching active routes:', error);
+        console.error('Error message:', error.message);
+
       },
       () => {
         this.loading = false; // Set loading to false when the data is loaded (complete callback)

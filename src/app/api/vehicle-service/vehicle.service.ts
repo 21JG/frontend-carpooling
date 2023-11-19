@@ -18,6 +18,7 @@ export class VehicleService {
     capacity: 0,
     owner: {
       id: 'string',
+      licenseNumber: 'string',
       customer: {
         id: 'string',
         dni: 'string',
@@ -29,11 +30,9 @@ export class VehicleService {
         phone: 0,
         companyEmail: 'string',
       },
-      licenseNumber: 0,
       authorizedCategory: {
         id: 'string',
         category: 'string',
-        expiration: new Date(),
       }
     },
   });

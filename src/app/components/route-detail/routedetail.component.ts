@@ -1,16 +1,17 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {RouteModel} from "../../models/route.model";
 import {LoginService} from "../../api/login-service/login.service";
 import {Router} from "@angular/router";
 import {deleteCookie} from "../../token/utils/cooke.utils";
 import {RouteActiveModel} from "../../models/routeactive";
 import {RoutesService} from "../../api/routes-service/routes-service";
+import {MapComponent} from "../../shared/map/map.component";
 
 
 @Component({
   selector: 'app-route-detail',
   templateUrl: './routedetail.component.html',
-  styleUrls: ['./routedetail.component.css']
+  styleUrls: ['./routedetail.component.css'],
 })
 
 export class RouteDetailComponent implements OnInit{
@@ -19,10 +20,12 @@ export class RouteDetailComponent implements OnInit{
   routeId: string;
   globalPlate: string;
   globalCapacity: number;
+  markers=[];
 
   constructor(private router: Router,private route: RoutesService) {}
 
   routeDetail: RouteModel[] = [];
+
 
 
   ngOnInit(): void {
@@ -31,7 +34,22 @@ export class RouteDetailComponent implements OnInit{
 
     this.route.getRouteDetail(routeId).subscribe(
       (response: any) => {
-        console.log('Response Data:', response.data);
+        response.data.forEach(route => {
+          const positions = response.data[0].positions?.map(position=>{
+            if (position && position.latitude && position.longitude) {
+              return {
+                lat: position.latitude,
+                lng: position.longitude,
+                title: `Marker for Route ${route.id}`
+              };
+          }else{
+            return {};
+            }
+            }
+            );
+          this.markers = positions;
+        });
+        console.log(this.markers)
 
         // Check if 'data' property exists and is an array
         if (response.data && Array.isArray(response.data)) {
@@ -43,17 +61,10 @@ export class RouteDetailComponent implements OnInit{
             this.globalPlate = routeData.driverVehicle.vehicle.plate;
             this.globalCapacity = routeData.routeCapacity;
 
-            console.log('Route Data:', routeData);
-
             const flattenedPointsOfInterest = Array.isArray(routeData.pointOfInterest)
               ? routeData.pointOfInterest
               : [];
 
-
-
-
-
-            console.log('Flattened Points of Interest:', flattenedPointsOfInterest);
 
             return {
               id: routeData.id,
@@ -77,6 +88,7 @@ export class RouteDetailComponent implements OnInit{
       }
     );
   }
+
   private getId (): string {
     // Extract the route ID from the current route
     const currentRoute = window.location.hash; // Assuming the ID is in the hash part of the URL

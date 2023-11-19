@@ -49,9 +49,9 @@ export class driverService{
   getDriver(){
     return this.http.get<DriverModel>(`${DOMAIN_URL}/api/v1/carpooling/driver`)
   }
-  getAuthorizedCategory():Observable<string[]>{
+  getAuthorizedCategory():Observable<AuthorizedCategoryModel[]>{
     return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling/authorizedcategory`).pipe(
-      map(response => response.data[0].map(categoryObj => categoryObj.category))
+      map(response => response.data[0].map(categoryObj => categoryObj))
     )
   }
 

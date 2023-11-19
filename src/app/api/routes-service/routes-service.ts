@@ -97,7 +97,7 @@ export class RoutesService {
     routeCapacity:0,
     pointsOfInterest:[],
     position:[],
-    routeTime:new Date(),
+    routeTime:'string',
     routeStatus: {
       id: 'string',
       status: 'string',

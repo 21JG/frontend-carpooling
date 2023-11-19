@@ -33,7 +33,7 @@
     </div>
     <select class="controls" name="catLicencia" placeholder="Categoria Licencia" formControlName="category">
       <option value="" selected="true">Seleccione...</option>
-      <option *ngFor="let category of categorias" [value]="category">{{category}}</option>
+      <option *ngFor="let category of categorias" [value]="category.id">{{category.category}}</option>
     </select>
     <div
       *ngIf="DriverForm.controls['category'].invalid && DriverForm.controls['category'].touched">

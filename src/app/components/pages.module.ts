@@ -26,19 +26,19 @@ import {RouteDetailComponent} from "./route-detail/routedetail.component";
 
 
 const Pages=[
+  RouteDetailComponent,
   LoginComponent,
   DriverSignUpComponent,
   RoutesComponent,
   IntroComponent,
   OptionComponent,
   PassengerSignUpComponent,
-  RouteDetailComponent,
-
 ]
 
 @NgModule({
-  declarations:[Pages,],
+  declarations:[Pages],
   imports: [
+    SharedModule,
     CommonModule,
     RouterModule,
     MatFormFieldModule,
@@ -56,7 +56,6 @@ const Pages=[
     NgIf,
     MatChipsModule,
     MatLegacyChipsModule,
-    SharedModule
 
   ],
   exports:[Pages],

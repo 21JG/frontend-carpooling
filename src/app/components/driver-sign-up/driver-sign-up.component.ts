@@ -5,6 +5,7 @@ import {ToastrService} from "ngx-toastr";
 import {driverService} from "../../api/driver-service/driver.service";
 import {DriverModel} from "../../models/driver.model";
 import {CustomerModel} from "../../models/customer.model";
+import {AuthorizedCategoryModel} from "../../models/authorizedcategory.model";
 
 
 
@@ -18,7 +19,7 @@ export class DriverSignUpComponent implements OnInit{
 
   public DriverForm !: FormGroup
   hidePassword: boolean;
-  public categorias: string[] = [];
+  public categorias: AuthorizedCategoryModel[] = [];
 
 
   constructor(private formBuilder: FormBuilder,  private router: Router, private driverService:driverService, private toast:ToastrService){}
@@ -47,7 +48,7 @@ export class DriverSignUpComponent implements OnInit{
       secondSurname: ['', Validators.required],
       password: ['', Validators.required],
       licenseNumber: ['', [Validators.required]],
-      category: ['', [Validators.required]],
+      category: ['',[Validators.required]],
       // expiration: ['', [Validators.required]],
       phone: ['', Validators.required],
       companyEmail: ['', [Validators.required, Validators.email]],
@@ -79,10 +80,7 @@ export class DriverSignUpComponent implements OnInit{
         secondSurname: this.DriverForm.get("secondSurname").value,
       },
       licenseNumber: this.DriverForm.get("licenseNumber").value,
-      authorizedCategory:{
-        category: this.DriverForm.get("category").value,
-        // expiration: this.DriverForm.get("expiration").value,
-      },
+      authorizedCategory:this.categorias.filter(categoria=> categoria.id == this.DriverForm.get("category").value)[0]
     }
     this.driverService.createDriver(driverDTO).subscribe({
       next:(driver: DriverModel) => {
@@ -90,6 +88,7 @@ export class DriverSignUpComponent implements OnInit{
         this.router.navigate(['/login'])
       },
       error:(error) => {
+        console.log("Error")
         this.toast.error("Something went wrong")
         console.log(this.DriverForm)
       }
