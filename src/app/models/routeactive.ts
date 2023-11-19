@@ -7,5 +7,6 @@ export interface RouteActiveModel{
   routeCapacity?: number;
   origin?: PositionModel ;
   destination?: PositionModel ;
+  color: string; // Add this property
 
 }

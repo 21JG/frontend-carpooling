@@ -13,7 +13,7 @@ export class MapComponent implements OnInit{
   public map: google.maps.Map | undefined;
   public lat: number = 6.14983552114;
   public lng: number = -75.3657935857;
-  public zoom: number = 15; // Set an initial zoom level
+  public zoom: number = 13; // Set an initial zoom level
 
 
   @Input()set markers(markers:{ lat: string, lng: string, title: string }[]){
@@ -115,20 +115,14 @@ export class MapComponent implements OnInit{
               strokeColor: color,
             },
           });
-
-          // Customize the marker
-          const marker = new google.maps.Marker({
-            position: { lat: parseFloat(destination.lat), lng: parseFloat(destination.lng) },
-            map: this.map,
-            title: markerLetter,
-            label: markerLetter,
-          });
         } else {
           console.error('Directions request failed:', status);
         }
       });
     }
   }
+
+
 
 
 

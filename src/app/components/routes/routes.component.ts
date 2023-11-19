@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {ChangeDetectorRef, Component, NgZone, OnInit, ViewChild} from "@angular/core";
 import {RouteModel} from "../../models/route.model";
 import {LoginService} from "../../api/login-service/login.service";
 import {Router} from "@angular/router";
@@ -6,16 +6,8 @@ import {deleteCookie} from "../../token/utils/cooke.utils";
 import {RouteActiveModel} from "../../models/routeactive";
 import {RoutesService} from "../../api/routes-service/routes-service";
 import {MapComponent} from "../../shared/map/map.component";
+import {PositionModel} from "../../models/position.model";
 
-
-function getRandomColor(): string {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 
 @Component({
@@ -31,9 +23,10 @@ export class RoutesComponent implements OnInit{
 
   @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
 
-  constructor(private router: Router,private route: RoutesService,) {}
-
   activeRoutes: RouteActiveModel[] = [];
+
+  constructor(private router: Router,private route: RoutesService, private cdr: ChangeDetectorRef,  private zone: NgZone) {}
+
   // ngOnInit(): void {
   //   this.route-detail.getActiveRoutes().subscribe(
   //     (response: any) => {
@@ -63,6 +56,15 @@ export class RoutesComponent implements OnInit{
   //   );
   // }
 
+  getRandomColor(): string {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   ngOnInit(): void {
     this.loading = true; // Set loading to true before making the API call
 
@@ -71,28 +73,62 @@ export class RoutesComponent implements OnInit{
         if (response.data && Array.isArray(response.data)) {
           const routesArray = response.data.flat();
           this.activeRoutes = routesArray.map(routeData => {
+            const color = this.getRandomColor();
+
             return {
               id: routeData.id,
               driverVehicle: routeData.driverVehicle,
               routeCapacity: routeData.routeCapacity,
               origin: routeData.origin,
-              destination: routeData.destination
+              destination: routeData.destination,
+              color:color,
             };
           });
 
           console.log('Processed Routes:', this.activeRoutes);
 
+          // if (this.mapComponent) {
+          //   this.activeRoutes.forEach((route, index) => {
+          //     const color = this.getRandomColor();
+          //     const markerLetter = String.fromCharCode(65 + index);
+          //
+          //     this.geocodeAndDrawRoute(route, color, markerLetter);
+          //
+          //     this.geocodeCoordinates(route.origin, (originAddress: string) => {
+          //       route.origin.address = originAddress;
+          //     });
+          //
+          //     this.geocodeCoordinates(route.destination, (destinationAddress: string) => {
+          //       route.destination.address = destinationAddress;
+          //     });
+          //
+          //     this.cdr.detectChanges();
+          //
+          //     // this.mapComponent.drawRoute(
+          //     //   { lng: route.origin.longitude, lat: route.origin.latitude, title: 'Origin' },
+          //     //   { lat: route.destination.latitude, lng: route.destination.longitude, title: 'Destination' },
+          //     //   color,
+          //     //   markerLetter
+          //     // );
+          //   });
+          // }
+
           if (this.mapComponent) {
             this.activeRoutes.forEach((route, index) => {
-              const color = getRandomColor();
-              const markerLetter = String.fromCharCode(65 + index);
+              this.zone.runOutsideAngular(() => {
+                const markerLetter = String.fromCharCode(65 + index);
 
-              this.mapComponent.drawRoute(
-                { lng: route.origin.longitude, lat: route.origin.latitude, title: 'Origin' },
-                { lat: route.destination.latitude, lng: route.destination.longitude, title: 'Destination' },
-                color,
-                markerLetter
-              );
+                this.geocodeAndDrawRoute(route, route.color, markerLetter);
+
+                this.geocodeCoordinates(route.origin, (originAddress: string) => {
+                  route.origin.address = originAddress;
+                });
+
+                this.geocodeCoordinates(route.destination, (destinationAddress: string) => {
+                  route.destination.address = destinationAddress;
+                });
+
+              });
             });
           }
 
@@ -111,10 +147,66 @@ export class RoutesComponent implements OnInit{
     );
   }
 
+  private geocodeAndDrawRoute(route: RouteActiveModel, color: string, markerLetter: string): void {
+    this.geocodeCoordinates(route.origin, (originAddress: string) => {
+      this.geocodeCoordinates(route.destination, (destinationAddress: string) => {
+        this.mapComponent.drawRoute(
+          { lng: route.origin.longitude, lat: route.origin.latitude, title: originAddress },
+          { lat: route.destination.latitude, lng: route.destination.longitude, title: destinationAddress },
+          color,
+          markerLetter
+        );
+      });
+    });
+  }
+
+
+  // Update the type of the 'coordinates' parameter in the geocodeCoordinates function
+  private geocodeCoordinates(coordinates: PositionModel, callback: (address: string) => void): void {
+    const geocoder = new google.maps.Geocoder();
+
+    // Ensure that latitude and longitude are numbers
+    const lat = Number(coordinates.latitude);
+    const lng = Number(coordinates.longitude);
+
+    const latlng = new google.maps.LatLng(lat, lng);
+
+    geocoder.geocode({ location: latlng }, (results: any[], status: string) => {
+      if (status === "OK") {
+        if (results[0]) {
+          callback(results[0].formatted_address);
+        } else {
+          console.error("No results found for the given coordinates");
+        }
+      } else {
+        console.error("Geocoder failed due to: " + status);
+      }
+    });
+  }
+
+
+
+
   getRouteDetail(id:string):void{
     this.router.navigate(['/routedetail',id]);
   }
 
+  // private geocodeCoordinates(coordinates: { latitude: number; longitude: number }, callback: (address: string) => void): void {
+  //   const geocoder = new google.maps.Geocoder();
+  //   const latlng = new google.maps.LatLng(coordinates.latitude, coordinates.longitude);
+  //
+  //   geocoder.geocode({ location: latlng }, (results, status) => {
+  //     if (status === "OK") {
+  //       if (results[0]) {
+  //         callback(results[0].formatted_address);
+  //       } else {
+  //         console.error("No results found for the given coordinates");
+  //       }
+  //     } else {
+  //       console.error("Geocoder failed due to: " + status);
+  //     }
+  //   });
+  // }
 
 
 

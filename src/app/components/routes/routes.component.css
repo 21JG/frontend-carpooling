@@ -5,6 +5,18 @@
   justify-content: center;
 }
 
+.route-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Add this if you want to make sure the colored circle is visible even when route has no color */
+.route-circle.default-color {
+  background-color: gray;
+}
+
 
 .routes-card {
   z-index: 10;

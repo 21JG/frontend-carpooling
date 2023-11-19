@@ -59,6 +59,7 @@ export class RoutesService {
       latitude:'string',
       longitude:'string',
     },
+    color:'string',
   });
 
   Route: BehaviorSubject<RouteModel> = new BehaviorSubject<RouteModel>({

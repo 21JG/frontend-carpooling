@@ -15,29 +15,31 @@
     <app-map class="agm-map"></app-map>
 
     <!-- Green circle with plus symbol -->
-    <div class="green-circle-icon">
-      <mat-icon style="color: white;">add</mat-icon>
-    </div>
+<!--    <div class="green-circle-icon">-->
+<!--      <mat-icon style="color: white;">add</mat-icon>-->
+<!--    </div>-->
   </div>
 
   <div class="mat-card routes-card"
        [ngClass]="{'route-list': activeRoutes.length > 5, 'route-grid': activeRoutes.length <= 5}"
        [ngStyle]="{'min-height.px': 60, 'height.px': activeRoutes.length * 135}">
-    <span><strong style="color: white; font-size: x-large;">Routes</strong></span>
+    <span><strong style="color: white; font-size: x-large;">Rutas</strong></span>
     <mat-progress-bar *ngIf="loading" mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>
 
     <div class="route-item" *ngFor="let route of activeRoutes">
     <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                <div class="route-circle" [style.background-color]="route.color"></div>
+
       <div>
-        Plate: <strong>{{ route.driverVehicle.vehicle.plate }}</strong>
+        Placa: <strong>{{ route.driverVehicle.vehicle.plate }}</strong>
         <br />
         <span style="display: flex; align-items: center;">
-          Origin: {{ route.origin.latitude }}, {{ route.origin.longitude }}
+          Origen: {{route.origin.address}}
           <br>
-          Destination: {{ route.destination.latitude }}, {{ route.destination.longitude }}
+          Destino: {{ route.destination.address }}
         </span>
         <span style="display: flex; align-items: center;">
-          Capacity: {{ route.routeCapacity }}
+          Capacidad: {{ route.routeCapacity }}
           <mat-icon class="person-icon" style="margin-left: 5px;">person</mat-icon>
         </span>
       </div>
