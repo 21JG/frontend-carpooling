@@ -74,7 +74,7 @@ export class DriverSignUpComponent implements OnInit{
         password: this.DriverForm.get("password").value,
         dni: this.DriverForm.get("dni").value,
         firstName: this.DriverForm.get("firstName").value,
-        phone: parseInt(this.DriverForm.get("phone").value),
+        phone: this.DriverForm.get("phone").value,
         firstSurname: this.DriverForm.get("firstSurname").value,
         secondName: this.DriverForm.get("secondName").value,
         secondSurname: this.DriverForm.get("secondSurname").value,

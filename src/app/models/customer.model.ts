@@ -7,7 +7,7 @@ export interface CustomerModel {
   secondSurname?: string;
   password?: string;
   companyEmail?: string;
-  phone?: number;
+  phone?: string;
   rol?: number;
 }
 

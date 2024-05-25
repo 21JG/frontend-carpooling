@@ -33,7 +33,7 @@ export class driverService{
         firstSurname: 'string',
         secondSurname: 'string',
         password: 'string',
-        phone: 0,
+        phone: 'string',
         companyEmail: 'string',
         rol:0,
       },
@@ -42,15 +42,15 @@ export class driverService{
 
   createDriver(driverForm:DriverModel):Observable<any>{
     // return this.http.post<any>(`${DOMAIN_URL}/api/v1/carpooling/driver`,driverForm);
-    return this.http.post<any>(`/api/v1/carpooling/driver`,driverForm);
+    return this.http.post<any>(`/api/v1/carpooling-uco/driver`,driverForm);
 
   }
 
   getDriver(){
-    return this.http.get<DriverModel>(`${DOMAIN_URL}/api/v1/carpooling/driver`)
+    return this.http.get<DriverModel>(`${DOMAIN_URL}/api/v1/carpooling-uco/driver`)
   }
   getAuthorizedCategory():Observable<AuthorizedCategoryModel[]>{
-    return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling/authorizedcategory`).pipe(
+    return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/authorizedcategory`).pipe(
       map(response => response.data[0].map(categoryObj => categoryObj))
     )
   }

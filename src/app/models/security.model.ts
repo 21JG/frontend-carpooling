@@ -6,7 +6,7 @@ export interface signUpForm {
   firstSurname?: string;
   secondSurname?: string;
   password?: string;
-  phone?: number;
+  phone?: string;
   companyEmail?: string;
   licenseNumber?: string;
   authorizedCategory?: {

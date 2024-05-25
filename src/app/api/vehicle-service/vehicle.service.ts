@@ -8,7 +8,6 @@ import {VehicleModel} from "../../models/vehicle.model";
 })
 export class VehicleService {
 
-
   constructor(private http: HttpClient) {}
   private cadena = '';
 
@@ -27,7 +26,7 @@ export class VehicleService {
         firstSurname: 'string',
         secondSurname: 'string',
         password: 'string',
-        phone: 0,
+        phone: 'string',
         companyEmail: 'string',
       },
       authorizedCategory: {
@@ -38,19 +37,16 @@ export class VehicleService {
   });
 
   createVehicle(vehicleForm:VehicleModel){
-    this.cadena = 'api/v1/carpooling/vehicle' + localStorage.getItem('driver') + '/create';
+    this.cadena = 'api/v1/carpooling-uco/vehicle' + localStorage.getItem('driver') + '/create';
     return this.http.post<any>(this.cadena, vehicleForm);
   }
-  deleteCar(vehicleId: number): Observable<any> {
-    return this.http.delete(`api/v1/carpooling/vehicle/delete/${vehicleId}`);
-  }
 
-  getAllCars(vehicleForm:VehicleModel){
-    return this.http.post<VehicleModel>('api/v1/carpooling/customer/vehicle/findall',vehicleForm);
+  deleteCar(vehicleId: number): Observable<any> {
+    return this.http.delete(`api/v1/carpooling-uco/vehicle/${vehicleId}`);
   }
 
   getCarsPerDriver(){
-    this.cadena = 'api/v1/carpooling/vehicle' + localStorage.getItem('driver') + '/findall';
+    this.cadena = 'api/v1/carpooling-uco/vehicle' + localStorage.getItem('driver') + '/findall';
     return this.http.get<VehicleModel>(this.cadena);
   }
 
