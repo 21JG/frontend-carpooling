@@ -9,6 +9,7 @@ import {OptionComponent} from "./components/option/option.component";
 import {PassengerSignUpComponent} from "./components/passenger-sign-up/passenger-sign-up.component";
 import {userGuard} from "./token/guard/user-guard.guard";
 import {RouteDetailComponent} from "./components/route-detail/routedetail.component";
+import { VehicleRegistrationComponent } from './components/vehicle-register/vehicle-register.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path:'signup/driver',
         component:DriverSignUpComponent,
+      },
+      {
+        path:'vehicle',
+        component:VehicleRegistrationComponent,
       },
       {
         path:'signup/passenger',

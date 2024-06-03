@@ -40,21 +40,6 @@
       Este campo es obligatorio.
     </div>
 
-<!--    <legend>Fecha Expiracion</legend>-->
-<!--    <input class="controls" type="date" name="fechaExpiracion" formControlName="expiration">-->
-
-<!--    <div-->
-<!--      *ngIf="DriverForm.controls['expiration'].invalid && DriverForm.controls['expiration'].touched">-->
-<!--      Este campo es obligatorio.-->
-<!--    </div>-->
-
-
-
-
-
-
-
-
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input matInput formControlName="companyEmail" type="email">
@@ -75,13 +60,11 @@
       <input matInput formControlName="phone" type="tel" matInput placeholder="320-555-1234">
     </mat-form-field>
 
-    <button mat-raised-button color="terciario" style="background-color: blue;" (click)="signUpDriver()">Sign Up</button>
+    <button mat-raised-button color="terciario" class="sign-up-button" (click)="signUpDriver()">Sign Up</button>
 
     <div> <a routerLink="/intro" class="btn btn-success">Volver</a> </div>
 
   </form>
-
-
 </section>
 
 </body>

@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {driverService} from "../../api/driver-service/driver.service";
 import {DriverModel} from "../../models/driver.model";
-import {CustomerModel} from "../../models/customer.model";
 import {AuthorizedCategoryModel} from "../../models/authorizedcategory.model";
 
 
@@ -55,16 +54,6 @@ export class DriverSignUpComponent implements OnInit{
 
     });
   }
-  // signUp(){
-  //   this.customerService.createCustomer(this.CustomerForm.value)
-  //     .subscribe(res=>{
-  //       this.toast.success("Signed Up successfully")
-  //       this.router.navigate(['/login'])
-  //     },err=>{
-  //       console.error(err);
-  //       this.toast.error("Something went wrong")
-  //     })
-  // }
 
 
   signUpDriver(){
@@ -85,7 +74,7 @@ export class DriverSignUpComponent implements OnInit{
     this.driverService.createDriver(driverDTO).subscribe({
       next:(driver: DriverModel) => {
         this.toast.success("Signed Up successfully")
-        this.router.navigate(['/login'])
+        this.router.navigate(['/vehicle'])
       },
       error:(error) => {
         console.log("Error")
@@ -94,20 +83,5 @@ export class DriverSignUpComponent implements OnInit{
       }
     })
   }
-
-
-  // signUpDriver() {
-  //   this.driverService.createDriver(this.DriverForm.value).subscribe(
-  //     (response) => {
-  //       this.toast.success("Signed Up successfully");
-  //       this.router.navigate(['/login']);
-  //     },
-  //     (error) => {
-  //       this.toast.error("Something went wrong");
-  //       console.log(this.DriverForm);
-  //     }
-  //   );
-  // }
-
 }
 
