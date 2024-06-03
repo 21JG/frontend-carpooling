@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
-import { CustomerModel } from '../../models/customer.model';
 import { ToastrService } from 'ngx-toastr';
 import {LoginService} from "../../api/login-service/login.service";
 import {deleteCookie, setCookie} from "../../token/utils/cooke.utils";

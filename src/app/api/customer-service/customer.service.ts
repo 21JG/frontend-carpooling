@@ -25,7 +25,7 @@ export class CustomerService {
       firstSurname: 'string',
       secondSurname: 'string',
       password: 'string',
-      phone: 0,
+      phone: 'string',
       companyEmail: 'string',
       rol:0,
     }
@@ -33,15 +33,11 @@ export class CustomerService {
 
   createCustomer(customerForm:CustomerModel):Observable<any>{
     // return this.http.post<any>(`${DOMAIN_URL}/api/v1/carpooling/customer`,customerForm);
-    return this.http.post<any>(`/api/v1/carpooling/customer`,customerForm);
+    return this.http.post<any>(`/api/v1/carpooling-uco/customer`,customerForm);
   }
 
   getCustomer(){
-    return this.http.get<CustomerModel>(`${DOMAIN_URL}/api/v1/carpooling/customer/get`)
+    return this.http.get<CustomerModel>(`${DOMAIN_URL}/api/v1/carpooling-uco/customer`)
   }
-
-
-
-
 
 }

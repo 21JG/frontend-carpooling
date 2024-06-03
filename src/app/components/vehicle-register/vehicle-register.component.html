@@ -1,0 +1,24 @@
+<body class="Fondo">
+    <section>
+      <div class="container">
+        <img src="assets/img/logo.jpg" alt="" class="logo">
+      </div>
+      <form [formGroup]="VehicleForm" class="form-container">
+        <h1>Registro Vehículo</h1>
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" type="text">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Placa</mat-label>
+          <input matInput formControlName="plate" type="text">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Capacidad</mat-label>
+          <input matInput formControlName="capacity" type="number">
+        </mat-form-field>
+        <button mat-raised-button color="terciario" class="sign-up-button" (click)="registerVehicle()">Sign Up</button>
+      </form>
+    </section>
+  </body>
+  

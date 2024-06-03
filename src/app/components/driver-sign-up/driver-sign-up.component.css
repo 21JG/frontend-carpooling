@@ -39,4 +39,15 @@ h1{
   margin-bottom: 15%;
 }
 
+form .sign-up-button {
+  color: antiquewhite;
+  background-color:#2eb358;
+  margin: 2%;
+}
+
+form .sign-up-button:hover {
+  color: antiquewhite;
+  background-color:#278946;
+}
+
 

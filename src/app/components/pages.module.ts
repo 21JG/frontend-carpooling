@@ -10,7 +10,6 @@ import {MatTableModule} from "@angular/material/table";
 import {MatInputModule} from "@angular/material/input";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {DriverSignUpComponent} from "./driver-sign-up/driver-sign-up.component";
-import {AgmCoreModule} from "@agm/core";
 import {RoutesComponent} from "./routes/routes.component";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
@@ -23,6 +22,7 @@ import {PassengerSignUpComponent} from "./passenger-sign-up/passenger-sign-up.co
 import {SharedModule} from "../shared/shared.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {RouteDetailComponent} from "./route-detail/routedetail.component";
+import { VehicleRegistrationComponent } from "./vehicle-register/vehicle-register.component";
 
 
 const Pages=[
@@ -33,6 +33,7 @@ const Pages=[
   IntroComponent,
   OptionComponent,
   PassengerSignUpComponent,
+  VehicleRegistrationComponent,
 ]
 
 @NgModule({
