@@ -1,11 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {RouteModel} from "../../models/route.model";
-import {LoginService} from "../../api/login-service/login.service";
 import {Router} from "@angular/router";
 import {deleteCookie} from "../../token/utils/cooke.utils";
-import {RouteActiveModel} from "../../models/routeactive";
 import {RoutesService} from "../../api/routes-service/routes-service";
-import {MapComponent} from "../../shared/map/map.component";
 
 
 @Component({
@@ -19,14 +16,14 @@ export class RouteDetailComponent implements OnInit{
   loading: boolean = false; // Add this line to define the loading property
   routeId: string;
   globalPlate: string;
+  globalModel: string;
   globalCapacity: number;
+  globalDriverName: string;
   markers=[];
 
   constructor(private router: Router,private route: RoutesService) {}
 
   routeDetail: RouteModel[] = [];
-
-
 
   ngOnInit(): void {
     this.loading = true; // Set loading to true before making the API call
@@ -42,11 +39,10 @@ export class RouteDetailComponent implements OnInit{
                 lng: position.longitude,
                 title: `Marker for Route ${route.id}`
               };
-          }else{
+          } else{
             return {};
             }
-            }
-            );
+          });
           this.markers = positions;
         });
         console.log(this.markers)
@@ -60,11 +56,13 @@ export class RouteDetailComponent implements OnInit{
           this.routeDetail = routesArray.map(routeData => {
             this.globalPlate = routeData.driverVehicle.vehicle.plate;
             this.globalCapacity = routeData.routeCapacity;
+            this.globalModel = routeData.driverVehicle.vehicle.name;
+            this.globalDriverName = routeData.driverVehicle.vehicle.owner.customer.firstName + " "
+                                  + routeData.driverVehicle.vehicle.owner.customer.firstSurname;
 
             const flattenedPointsOfInterest = Array.isArray(routeData.pointOfInterest)
               ? routeData.pointOfInterest
               : [];
-
 
             return {
               id: routeData.id,
@@ -96,12 +94,6 @@ export class RouteDetailComponent implements OnInit{
     const routeId = routeParts[routeParts.length - 1];
     return routeId;
   }
-
-
-
-
-
-
 
 
   onLogout():void{

@@ -54,6 +54,7 @@ export class VehicleRegistrationComponent implements OnInit {
     if (this.VehicleForm.valid) {
         const vehicleData: VehicleModel = {
         plate: this.VehicleForm.value.plate,
+        name: this.VehicleForm.value.name,
         capacity: this.VehicleForm.value.capacity,
         owner: {
           id: this.driver.id,
