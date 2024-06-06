@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient,  HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {VehicleModel} from "../../models/vehicle.model";
+import {getCookie} from "../../token/utils/cooke.utils";
 
 @Injectable({
   providedIn: 'root'
@@ -37,19 +38,20 @@ export class VehicleService {
   });
 
   createVehicle(vehicleForm:VehicleModel){
-    this.cadena = 'api/v1/carpooling-uco/vehicle' + localStorage.getItem('driver') + '/create';
-    return this.http.post<any>(this.cadena, vehicleForm);
+    this.cadena = 'api/v1/carpooling-uco/vehicle';
+    return this.http.post<VehicleModel>(this.cadena, vehicleForm);
   }
 
   deleteCar(vehicleId: number): Observable<any> {
+    const token = getCookie('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
     return this.http.delete(`api/v1/carpooling-uco/vehicle/${vehicleId}`);
   }
 
   getCarsPerDriver(){
-    this.cadena = 'api/v1/carpooling-uco/vehicle' + localStorage.getItem('driver') + '/findall';
+    this.cadena = 'api/v1/carpooling-uco/vehicle';
     return this.http.get<VehicleModel>(this.cadena);
   }
-
-
-
 }

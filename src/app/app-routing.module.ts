@@ -31,7 +31,7 @@ const routes: Routes = [
         component:DriverSignUpComponent,
       },
       {
-        path:'vehicle',
+        path:'signup/driver/vehicle',
         component:VehicleRegistrationComponent,
       },
       {

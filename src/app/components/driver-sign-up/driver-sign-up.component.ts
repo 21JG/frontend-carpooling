@@ -1,10 +1,14 @@
-import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {driverService} from "../../api/driver-service/driver.service";
-import {DriverModel} from "../../models/driver.model";
-import {AuthorizedCategoryModel} from "../../models/authorizedcategory.model";
+import { Component, OnInit} from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { Router} from "@angular/router";
+import { ToastrService} from "ngx-toastr";
+import { driverService} from "../../api/driver-service/driver.service";
+import { DriverStateLoginService} from "../../api/driver-service/driverStateLogin.service";
+import { LoginService } from "../../api/login-service/login.service";
+import { DriverModel} from "../../models/driver.model";
+import { AuthorizedCategoryModel} from "../../models/authorizedcategory.model";
+
+import {deleteCookie, setCookie} from "../../token/utils/cooke.utils";
 
 
 
@@ -21,7 +25,10 @@ export class DriverSignUpComponent implements OnInit{
   public categorias: AuthorizedCategoryModel[] = [];
 
 
-  constructor(private formBuilder: FormBuilder,  private router: Router, private driverService:driverService, private toast:ToastrService){}
+  constructor(
+    private formBuilder: FormBuilder,  private router: Router, private driverService:driverService,
+    private driverStateLoginService:DriverStateLoginService, private tokenService: LoginService, private toast:ToastrService
+  ){}
 
   ngOnInit(): void {
     this.Form();
@@ -74,7 +81,9 @@ export class DriverSignUpComponent implements OnInit{
     this.driverService.createDriver(driverDTO).subscribe({
       next:(driver: DriverModel) => {
         this.toast.success("Signed Up successfully")
-        this.router.navigate(['/vehicle'])
+        this.driverStateLoginService.setDriver(driverDTO);
+        //this.autoLogin(driverDTO.customer.companyEmail, driverDTO.customer.password);
+        this.router.navigate(['signup/driver/vehicle']);
       },
       error:(error) => {
         console.log("Error")
@@ -83,5 +92,25 @@ export class DriverSignUpComponent implements OnInit{
       }
     })
   }
-}
 
+ /* autoLogin(email: string, password: string) {
+    const logInForm = { username: email, password: password };
+
+    this.tokenService.logIn(logInForm).subscribe({
+      next: (response: any) => {
+        if (response.data && response.data.length > 0 && response.data[0].token) {
+          const token = response.data[0].token;
+          console.log('Token found:', token);
+          setCookie('token', token, { expires: 8 });
+          this.router.navigate(['signup/driver/vehicle']);
+        } else {
+          console.error('Token not found in the response. Response:', response);
+        }
+      },
+      error: (error) => {
+        console.error('Error during auto-login:', error);
+        this.toast.error("Error during auto-login");
+      }
+    });
+ }*/
+}
