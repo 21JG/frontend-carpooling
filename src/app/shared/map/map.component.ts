@@ -15,12 +15,23 @@ export class MapComponent implements OnInit{
   public lng: number = -75.3657935857;
   public zoom: number = 13; // Set an initial zoom level
 
+  public polyline: google.maps.Polyline | undefined; // Path
+
 
   @Input()set markers(markers:{ lat: string, lng: string, title: string }[]){
     if(markers)  {
       this.createMap();
-      markers.forEach(route=>{ this.addMarker(route)})
-
+      //markers.forEach(route=>{ this.addMarker(route)})
+      markers.forEach((route, index) => {
+        // Si es el primer o el último marcador, hacerlo visible
+        if (index === 0 || index === markers.length - 1) {
+          this.addMarker(route);
+        } else {
+          // Si no es el primero ni el último, agregar el marcador pero hacerlo invisible
+          this.addMarker(route, false);
+        }
+      });
+      this.drawPath(markers);
     }
   }
 
@@ -43,8 +54,10 @@ export class MapComponent implements OnInit{
       'A' // Provide a default marker letter or remove this argument if not needed
     );
   }
+  
 // Inside your MapComponent
-  public addMarker(markerData: { lat: string, lng: string, title: string }): void {
+
+  public addMarker(markerData: { lat: string, lng: string, title: string }, visible: boolean = true): void {
     if (this.map) {
       const lat = parseFloat(markerData.lat);
       const lng = parseFloat(markerData.lng);
@@ -53,11 +66,35 @@ export class MapComponent implements OnInit{
         const marker = new google.maps.Marker({
           position: {lat, lng},
           map: this.map,
-          title: markerData.title
+          title: markerData.title,
+          visible: visible,
         });
       } else {
         console.error('Invalid latitude or longitude:', markerData);
       }
+    }
+  }
+
+  /**
+   * Método encargado de crear la linea por donde ocurrira la ruta segun su lista de marcadores (posiciones).
+   * @param markers 
+   */
+  public drawPath(markers: { lat: string, lng: string, title: string }[]): void {
+    const pathCoordinates = markers.map(marker => ({
+      lat: parseFloat(marker.lat),
+      lng: parseFloat(marker.lng)
+    }));
+
+    if (this.map && pathCoordinates.length >= 2) {
+      this.polyline = new google.maps.Polyline({
+        path: pathCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000', // Color de la línea
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+
+      this.polyline.setMap(this.map);
     }
   }
 
@@ -121,13 +158,5 @@ export class MapComponent implements OnInit{
       });
     }
   }
-
-
-
-
-
-
-
-
 
 }

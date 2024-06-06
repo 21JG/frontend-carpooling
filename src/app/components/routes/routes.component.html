@@ -13,42 +13,37 @@
 <div style="height: 100%; width: 100%; margin-top: 30px; position: relative;">
   <div style="position: relative; height: 100%;">
     <app-map class="agm-map"></app-map>
-
-    <!-- Green circle with plus symbol -->
-<!--    <div class="green-circle-icon">-->
-<!--      <mat-icon style="color: white;">add</mat-icon>-->
-<!--    </div>-->
   </div>
 
   <div class="mat-card routes-card"
        [ngClass]="{'route-list': activeRoutes.length > 5, 'route-grid': activeRoutes.length <= 5}"
        [ngStyle]="{'min-height.px': 60, 'height.px': activeRoutes.length * 135}">
-    <span><strong style="color: white; font-size: x-large;">Rutas</strong></span>
-    <mat-progress-bar *ngIf="loading" mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>
-
-    <div class="route-item" *ngFor="let route of activeRoutes">
-    <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-                <div class="route-circle" [style.background-color]="route.color"></div>
-
-      <div>
-        Placa: <strong>{{ route.driverVehicle.vehicle.plate }}</strong>
-        <br />
-        <span style="display: flex; align-items: center;">
-          Origen: {{route.origin.address}}
-          <br>
-          Destino: {{ route.destination.address }}
-        </span>
-        <span style="display: flex; align-items: center;">
-          Capacidad: {{ route.routeCapacity }}
-          <mat-icon class="person-icon" style="margin-left: 5px;">person</mat-icon>
+    <span class="routes-card-title"><strong style="color: white; font-size: x-large;">Rutas</strong></span>
+    <div class="routes-content">
+      <mat-progress-bar *ngIf="loading" mode="indeterminate" class="custom-progress-bar"></mat-progress-bar>
+      <div class="route-item" *ngFor="let route of activeRoutes">
+        <span style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+          <div class="route-circle" [style.background-color]="route.color"></div>
+          <div>
+            Placa: <strong>{{ route.driverVehicle.vehicle.plate }}</strong><br />
+            <span style="display: flex; align-items: center;">
+              Conductor: {{route.driverVehicle.vehicle.owner.customer.firstName + " " + route.driverVehicle.vehicle.owner.customer.firstSurname}}<br>
+              Vehículo: {{ route.driverVehicle.vehicle.name}}
+            </span>
+            <span style="display: flex; align-items: center;">
+              Origen: {{route.origin.address}}<br>
+              Destino: {{ route.destination.address }}
+            </span>
+            <span style="display: flex; align-items: center;">
+              Capacidad: {{ route.routeCapacity }}
+              <mat-icon class="person-icon" style="margin-left: 5px;">person</mat-icon>
+            </span>
+          </div>
+          <mat-icon class="magnifying-glass-icon" (click)="getRouteDetail(route.id)">search</mat-icon>
         </span>
       </div>
-      <mat-icon class="magnifying-glass-icon" (click)="getRouteDetail(route.id)">search</mat-icon>
-    </span>
     </div>
   </div>
-
-
 </div>
 
 

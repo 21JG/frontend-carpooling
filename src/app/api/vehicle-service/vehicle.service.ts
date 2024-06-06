@@ -15,6 +15,7 @@ export class VehicleService {
   vehicle:BehaviorSubject<VehicleModel>=new BehaviorSubject<VehicleModel>({
     id: 'string',
     plate: 'string',
+    name: 'string',
     capacity: 0,
     owner: {
       id: 'string',

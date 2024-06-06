@@ -46,34 +46,25 @@
 
     <!-- Display global information outside the *ngFor loop -->
     <div *ngIf="routeDetail.length > 0">
-      <div style="display: flex; align-items: center;">
-        Plate: <strong>{{ globalPlate }}</strong>  --
-        Capacity: {{ globalCapacity }}
-        <mat-icon class="person-icon" style="margin-right: 5px;">person</mat-icon>
+      <div class="driver-card">
+        <p>Conductor: <strong> {{ globalDriverName }}</strong></p>
+        <p>Model: <strong> {{ globalModel }} </strong></p>
+        <p>Plate: <strong> {{ globalPlate }} </strong></p>
+        <p style="display: flex; align-items: center;">Capacity: {{ globalCapacity }}
+          <mat-icon class="person-icon">person</mat-icon>
+        </p>
       </div>
-      <br>
       <strong>Puntos de interes:</strong>
     </div>
 
-<!--    <mat-list *ngFor="let route of routeDetail">-->
-<!--      <ng-container *ngIf="route.pointsOfInterest && route.pointsOfInterest.length > 0">-->
-<!--        <mat-list-item *ngFor="let pointOfInterest of route.pointsOfInterest">-->
-<!--          {{ pointOfInterest }}-->
-<!--        </mat-list-item>-->
-<!--      </ng-container>-->
-<!--    </mat-list>-->
-    <div class="route-item" *ngFor="let route of routeDetail">
-  <span style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-    <div *ngFor="let pointOfInterest of route.pointsOfInterest; let last = last">
-      <span style="display: flex; align-items: center;">
-        {{ pointOfInterest }}
-      </span>
-      <div *ngIf="!last" class="divider"></div> <!-- Divider line after each point of interest, except the last one -->
+    <!-- Contenedor con scroll para los puntos de interés -->
+    <div class="points-of-interest-container">
+      <div *ngFor="let route of routeDetail">
+        <div *ngFor="let pointOfInterest of route.pointsOfInterest" class="point-of-interest">
+          {{ pointOfInterest }}
+        </div>
+      </div>
     </div>
-  </span>
-    </div>
-
-
 
   </div>
 

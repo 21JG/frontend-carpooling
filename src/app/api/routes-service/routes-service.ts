@@ -21,6 +21,7 @@ export class RoutesService {
       vehicle: {
         id: 'string',
         plate: 'string',
+        name: 'string',
         capacity: 0,
         owner: {
           id: 'string',
@@ -65,6 +66,7 @@ export class RoutesService {
       id: 'string',
       vehicle: {
         id: 'string',
+        name: 'string',
         plate: 'string',
         capacity: 0,
         owner: {

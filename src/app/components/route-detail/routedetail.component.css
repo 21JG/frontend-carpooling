@@ -5,7 +5,6 @@
   justify-content: center;
 }
 
-
 .routes-card {
   z-index: 10;
   position: absolute;
@@ -19,6 +18,7 @@
   display: flex;
   padding: 20px;
   flex-direction: column;
+  color: #232323;
 }
 .route-item{
   background-color: #ffffffe8;
@@ -63,7 +63,6 @@
 
 }
 
-
 .custom-progress-bar ::ng-deep .mat-progress-bar-background {
   background-color: #ffffff; /* Replace with your desired color */
 }
@@ -81,18 +80,38 @@
   justify-content: center;
   cursor: pointer; /* Optional: add a cursor pointer for better UX */
 }
-/*.small_mat_button {*/
-/*    button {*/
-/*        width: 54px;*/
-/*        height: 36px;*/
-/*        min-width: unset!important;*/
-/*        mat-icon {*/
-/*          font-size: 24px;*/
-/*        }*/
-/*    }*/
-/*}*/
+
+.driver-card {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 3.8em;
+}
+.driver-card p {
+  width: 45%; /* Cada elemento ocupe la el 45% del ancho del contenedor */
+  box-sizing: border-box; /* Asegura que el ancho incluya el padding y el borde */
+}
 
 
+.points-of-interest-container {
+  background-color: snow;
+  max-height: 30em;
+  min-height: 16em; /* Altura máxima antes de que aparezca el scrollbar */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  border: 1px solid #ccc; 
+  padding: 10px;
+  margin-top: 10px;
+}
 
+.points-of-interest-list {
+  display: flex;
+  flex-direction: column;
+}
 
+.point-of-interest {
+  padding: 0.4em 0; 
+  border-bottom: 1.5px solid #eee; /* Añade una línea divisoria entre puntos de interés */
+}
 
+.point-of-interest:last-child {
+  border-bottom: black; /* Elimina la línea divisoria del último elemento */
+}
