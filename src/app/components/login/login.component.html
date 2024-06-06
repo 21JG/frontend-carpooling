@@ -1,69 +1,33 @@
-<!--<div class="wh-full contenedor  animate__animated animate__bounceIn">-->
-<!--  <div class="caja">-->
-<!--    <div class="form-container ">-->
-<!--      <h1>Bienvenido</h1>-->
-<!--      <form [formGroup]="logInForm">-->
-
-
-<!--        <p>-->
-<!--        <mat-form-field appearance="fill">-->
-<!--          <mat-label>Email</mat-label>-->
-<!--          <input matInput type="text" formControlName="companyEmail">-->
-<!--          <mat-hint>email</mat-hint>-->
-<!--        </mat-form-field>-->
-<!--        </p>-->
-<!--        <p>-->
-
-<!--        <mat-form-field>-->
-<!--          <mat-label>Enter your password</mat-label>-->
-<!--          <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">-->
-<!--          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">-->
-<!--            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>-->
-<!--          </button>-->
-<!--        </mat-form-field>-->
-<!--        </p>-->
-
-
-<!--        <button mat-raised-button color ="green" style="background-color: #1eabab ;" (click)="logIn()">LogIn</button>-->
-<!--      </form>-->
-<!--      <span style="margin-top: 25px;">Nuevo Por Aquí? &nbsp;<a [routerLink]="['/signup']">Registrate</a></span>-->
-<!--    </div>-->
-<!--    <h1>Hola Mundo</h1>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<body class="Fondo" *ngIf="!ingreso">-->
-<body class="Fondo" >
-<section>
-  <form class="formIniciar" [formGroup]="logInForm">
-    <h1 class="iniciarSesion">Iniciar Sesión</h1>
-    <div *ngIf="showMessage" class="alert alert-danger">
-      <a href="#" class="alert-link">{{mensaje}}</a>
-    </div>
-    <i class="login fa-regular fa-circle-user"></i>
-<!--    <div>-->
-<!--      <img src="assets/img/login.jpg" alt="Logo login" class="logo">-->
-<!--    </div>-->
-            <p>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput type="text" formControlName="companyEmail">
-              <mat-hint>email</mat-hint>
-            </mat-form-field>
-            </p>
-            <p>
-
-            <mat-form-field>
-              <mat-label>Enter your password</mat-label>
-              <input matInput [type]="hidePassword ? 'password' : 'text'"formControlName="password">
-              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </button>
-            </mat-form-field>
-            </p>
-            <button mat-raised-button color ="green" style="background-color: #1eabab ;" (click)="logIn()">Ingresar</button>
-
-<div> <a routerLink="/intro" class="btn btn-success">Volver</a> </div>
-  </form>
-</section>
-
+<body class="Fondo">
+  <section>
+    <form class="form-iniciar" [formGroup]="logInForm">
+      <h1 class="iniciarSesion">Iniciar Sesión</h1>
+      <div *ngIf="showMessage" class="alert alert-danger">
+        <a href="#" class="alert-link">{{mensaje}}</a>
+      </div>
+      <div class="icon-container">
+        <i class="login fa-regular fa-circle-user"></i>
+      </div>
+      <div class="form-container">
+        <div>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="companyEmail">
+            <mat-hint>email</mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="full-width">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <button mat-raised-button class="btn-register" (click)="logIn()">Ingresar</button>
+      <div><a routerLink="/intro" class="btn btn-success">Volver</a></div>
+    </form>
+  </section>
 </body>

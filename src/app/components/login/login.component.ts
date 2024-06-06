@@ -3,7 +3,7 @@ import {Router} from '@angular/router'
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {LoginService} from "../../api/login-service/login.service";
-import {deleteCookie, setCookie} from "../../token/utils/cooke.utils";
+import {setCookie} from "../../token/utils/cooke.utils";
 
 
 
@@ -19,7 +19,7 @@ export class LoginComponent {
   state: string = 'none';
   hidePassword = true;
   public showMessage = false;
-  public mensaje: string = '';
+  public mensaje: string = 'Ha ocurrido un error inesperado.';
 
 
 
