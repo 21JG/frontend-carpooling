@@ -1,4 +1,4 @@
-.agm-map{
+.agm-map {
   height: 85vh;
   width: 100%;
   display: flex;
@@ -12,11 +12,9 @@
   margin-right: 10px;
 }
 
-/* Add this if you want to make sure the colored circle is visible even when route has no color */
 .route-circle.default-color {
   background-color: gray;
 }
-
 
 .routes-card {
   z-index: 10;
@@ -29,17 +27,58 @@
   background-color: forestgreen;
   border-radius: 20px;
   display: flex;
-  padding: 20px;
   flex-direction: column;
+  max-width: 45%;
+  padding: 10px; /* Añade relleno dentro de la tarjeta */
+  box-sizing: border-box; /* Asegúrate de que el relleno esté incluido en el tamaño total */
 }
-.route-item{
+
+.routes-card-title {
+  background-color: forestgreen;
+  z-index: 1;
+  padding: 10px 0; /* Añade relleno vertical */
+  margin-bottom: 10px; /* Añade un margen inferior para separar el título del contenido */
+}
+
+.routes-content {
+  overflow-y: auto;
+  height: calc(100% - 15px); /* Ajusta este valor según el tamaño del título */
+  padding: 0.8em; /* Añade relleno dentro del contenedor desplazable */
+  box-sizing: border-box; /* Asegúrate de que el relleno esté incluido en el tamaño total */
+}
+
+.routes-card::-webkit-scrollbar {
+  width: 10px;
+}
+
+.routes-card::-webkit-scrollbar-track {
+  background: forestgreen;
+  border-radius: 10px;
+}
+
+.routes-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+}
+
+.routes-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.routes-card {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.6) forestgreen;
+}
+
+.route-item {
   background-color: #ffffffe8;
   width: 100%;
   margin-top: 5px;
   border-radius: 3px;
   font-size: small;
-  padding: 10px;
+  padding: 10px; /* Añade relleno dentro de cada ítem de la ruta */
   display: flex;
+  flex-direction: column; /* Asegúrate de que los elementos internos estén en columna */
 }
 
 .route-list {
@@ -54,7 +93,7 @@
 }
 
 .custom-progress-bar ::ng-deep .mat-progress-bar-background {
-  background-color: #ffffff; /* Replace with your desired color */
+  background-color: #ffffff;
 }
 
 .green-circle-icon {
@@ -64,24 +103,9 @@
   margin-top: 5px;
   background-color: green;
   border-radius: 50%;
-  padding: 20px; /* Adjust as needed to make it larger */
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer; /* Optional: add a cursor pointer for better UX */
+  cursor: pointer;
 }
-/*.small_mat_button {*/
-/*    button {*/
-/*        width: 54px;*/
-/*        height: 36px;*/
-/*        min-width: unset!important;*/
-/*        mat-icon {*/
-/*          font-size: 24px;*/
-/*        }*/
-/*    }*/
-/*}*/
-
-
-
-
-
