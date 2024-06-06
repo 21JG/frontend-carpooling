@@ -55,4 +55,12 @@ export class driverService{
     )
   }
 
+  getDriverByLicense(license: string): Observable<DriverModel> {
+    return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/driver/`, {
+      params: { license }
+    }).pipe(
+      map(response => response.data[0])
+    );
+  }
+
 }

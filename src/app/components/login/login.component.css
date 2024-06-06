@@ -45,3 +45,7 @@ form{
 body {
   background-color: var(--verde);
 }
+
+.btn-success {
+  margin: 2%;
+}
