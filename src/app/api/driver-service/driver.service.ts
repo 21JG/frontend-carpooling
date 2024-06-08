@@ -48,11 +48,10 @@ export class DriverService{
   getDriver(): Observable<DriverModel[]> {
     return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/driver`).pipe(
       map(response => {
-        return response.data;
+        return response.data[0];
       })
     );
   }
-
   getAuthorizedCategory():Observable<AuthorizedCategoryModel[]>{
     return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/authorizedcategory`).pipe(
       map(response => response.data[0].map(categoryObj => categoryObj))
