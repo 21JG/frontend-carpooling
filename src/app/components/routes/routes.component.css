@@ -109,3 +109,16 @@
   justify-content: center;
   cursor: pointer;
 }
+
+.button-driver {
+  background-color: rgba(48, 158, 236, 0.22);
+  color: white;
+  width: 100px; /* Cambia el valor según tus necesidades */
+  height: 40px; /* Cambia el valor según tus necesidades */
+}
+.button-success {
+  color: white;
+  width: 250px; /* Cambia el valor según tus necesidades */
+  font-size: 24px; /* Ajusta el tamaño de fuente si es necesario */
+  background-color: green; /* Cambia el color de fondo a verde */
+}

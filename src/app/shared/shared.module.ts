@@ -8,15 +8,15 @@ import {AgmCoreModule} from "@agm/core";
   declarations:[
     MapComponent
   ],
-  exports:[
-    MapComponent
-  ],
   imports:[
     CommonModule,
-
     AgmCoreModule.forRoot({
       apiKey: ''
     }),
+  ],
+  exports:[
+    MapComponent,
+    CommonModule
   ]
 })
 export class SharedModule{}

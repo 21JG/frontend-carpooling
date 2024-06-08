@@ -2,7 +2,7 @@ import { Component, OnInit} from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import { Router} from "@angular/router";
 import { ToastrService} from "ngx-toastr";
-import { driverService} from "../../api/driver-service/driver.service";
+import {DriverService} from "../../api/driver-service/driver.service";
 import { DriverStateLoginService} from "../../api/driver-service/driverStateLogin.service";
 import { LoginService } from "../../api/login-service/login.service";
 import { DriverModel} from "../../models/driver.model";
@@ -26,7 +26,7 @@ export class DriverSignUpComponent implements OnInit{
 
 
   constructor(
-    private formBuilder: FormBuilder,  private router: Router, private driverService:driverService,
+    private formBuilder: FormBuilder,  private router: Router, private driverService:DriverService,
     private driverStateLoginService:DriverStateLoginService, private tokenService: LoginService, private toast:ToastrService
   ){}
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService} from "ngx-toastr";
 import { VehicleService } from '../../api/vehicle-service/vehicle.service';
-import { driverService } from '../../api/driver-service/driver.service';
+import { DriverService } from '../../api/driver-service/driver.service';
 import { VehicleModel } from '../../models/vehicle.model';
 import { DriverModel} from "../../models/driver.model";
 import { DriverStateLoginService } from "../../api/driver-service/driverStateLogin.service";
@@ -14,16 +14,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./vehicle-register.component.css']
 })
 export class VehicleRegistrationComponent implements OnInit {
-    
+
   public VehicleForm !: FormGroup;
   private driver: DriverModel;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private vehicleService: VehicleService,  
+    private vehicleService: VehicleService,
     private driverStateLoginService: DriverStateLoginService,
-    private driverService: driverService,
+    private driverService: DriverService,
     private toastr:ToastrService) {
     this.VehicleForm = this.fb.group({
       name: ['', Validators.required],

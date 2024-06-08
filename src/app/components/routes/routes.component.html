@@ -2,10 +2,12 @@
   <nav class="navbar bg-light">
     <div>
       <img src="assets/img/Logo.jpg" alt="Logo Carpooling" class="logo">
+      <span style="margin-right: 40px;"></span> <!-- Agrega un espacio entre los botones -->
+      <a *ngIf="isDriver" (click)="getRouteCreation()" class="btn button-driver">Conductor</a>
     </div>
 
-    <div class="">
-        <a (click)="onLogout()" class="btn btn-success" >LogOut</a>
+    <div class="button-container">
+      <a (click)="onLogout()" class="btn button-success" style="color: white;">LogOut</a>
     </div>
 
   </nav>

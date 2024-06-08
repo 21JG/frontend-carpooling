@@ -3,7 +3,7 @@ import {Router} from '@angular/router'
 import { FormGroup,FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {LoginService} from "../../api/login-service/login.service";
-import {setCookie} from "../../token/utils/cooke.utils";
+import {encrypt, setCookie} from "../../token/utils/cooke.utils";
 
 
 
@@ -13,20 +13,21 @@ import {setCookie} from "../../token/utils/cooke.utils";
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  public logInForm !: FormGroup
+  public logInForm !: FormGroup;
   state: string = 'none';
   hidePassword = true;
   public showMessage = false;
   public mensaje: string = 'Ha ocurrido un error inesperado.';
 
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private tokenService:LoginService,
+    private toast:ToastrService) {}
 
-
-  constructor(private formBuilder: FormBuilder,  private router: Router, private tokenService:LoginService, private toast:ToastrService) {
-
-  }
   ngOnInit(): void {
     this.logInForm = this.formBuilder.group({
       companyEmail: ['', [Validators.required, Validators.email]],
@@ -42,7 +43,13 @@ export class LoginComponent {
           const token = response.data[0].token;
           console.log('Token found:', token);
           setCookie('token', token, { expires: 8 });
+
+          const companyEmail = this.logInForm.get('companyEmail')?.value;
+          const encryptedEmail = encrypt(companyEmail);
+          setCookie('1P_JAR2', encryptedEmail, { expires: 8 });
+
           this.router.navigate(['/routes']);
+
         } else {
           console.error('Token not found in the response. Response:', response);
         }

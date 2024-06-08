@@ -1,0 +1,125 @@
+import {Component, OnInit} from "@angular/core";
+import {RouteModel} from "../../models/route.model";
+import {Router} from "@angular/router";
+import {deleteCookie} from "../../token/utils/cooke.utils";
+import {RoutesService} from "../../api/routes-service/routes-service";
+
+
+@Component({
+  selector: 'app-route-detail',
+  templateUrl: './routecreation.component.html',
+  styleUrls: ['./routecreation.component.css'],
+})
+
+export class RouteCreationComponent implements OnInit{
+
+  loadingMap: boolean = true; // Add this line to define the loading property
+  loading: boolean = false; // Add this line to define the loading property
+  routeId: string;
+  globalPlate: string;
+  globalModel: string;
+  globalCapacity: number;
+  selectedTime: string = '';
+  selectedCapacity: number;
+  globalDriverName: string;
+  termsAccepted = false;  // Asegúrate de agregar esta línea
+
+  step = 0;
+  markers=[];
+
+  constructor(private router: Router,private route: RoutesService) {}
+
+  routeDetail: RouteModel[] = [];
+
+  ngOnInit(): void {
+    this.loading = true; // Set loading to true before making the API call
+    this.loadingMap = true; // Set loading to true before making the API call
+    // const routeId = this.getId();
+
+    // this.route.getRouteDetail(routeId).subscribe(
+    //   (response: any) => {
+    //     response.data.forEach(route => {
+    //       const positions = response.data[0].positions?.map(position=>{
+    //         if (position && position.latitude && position.longitude) {
+    //           return {
+    //             lat: position.latitude,
+    //             lng: position.longitude,
+    //             title: `Marker for Route ${route.id}`
+    //           };
+    //       } else{
+    //         return {};
+    //         }
+    //       });
+    //       this.markers = positions;
+    //     });
+    //     console.log(this.markers)
+    //
+    //     // Check if 'data' property exists and is an array
+    //     if (response.data && Array.isArray(response.data)) {
+    //       // Flatten the array if it's nested
+    //       const routesArray = response.data.flat();
+    //
+    //       // Map each routeData to RouteActiveModel
+    //       this.routeDetail = routesArray.map(routeData => {
+    //         this.globalPlate = routeData.driverVehicle.vehicle.plate;
+    //         this.globalCapacity = routeData.routeCapacity;
+    //         this.globalModel = routeData.driverVehicle.vehicle.name;
+    //         this.globalDriverName = routeData.driverVehicle.vehicle.owner.customer.firstName + " "
+    //                               + routeData.driverVehicle.vehicle.owner.customer.firstSurname;
+    //
+    //         const flattenedPointsOfInterest = Array.isArray(routeData.pointOfInterest)
+    //           ? routeData.pointOfInterest
+    //           : [];
+    //
+    //         return {
+    //           id: routeData.id,
+    //           driverVehicle: routeData.driverVehicle,
+    //           routeCapacity: routeData.routeCapacity,
+    //           pointsOfInterest: flattenedPointsOfInterest,
+    //           position: routeData.position,
+    //           routeTime:routeData.routeTime
+    //         };
+    //       });
+    //
+    //     } else {
+    //       console.error('Invalid data structure in the response:', response);
+    //     }
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching active routes:', error);
+    //   },
+    //   () => {
+    //     this.loading = false; // Set loading to false when the data is loaded (complete callback)
+    //   }
+    // );
+  }
+
+  // private getId (): string {
+  //   // Extract the route ID from the current route
+  //   const currentRoute = window.location.hash; // Assuming the ID is in the hash part of the URL
+  //   const routeParts = currentRoute.split('/');
+  //   const routeId = routeParts[routeParts.length - 1];
+  //   return routeId;
+  // }
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+  handleTimeSelection(time: string) {
+    this.selectedTime = time;
+  }
+  capacities: number[] = Array.from({length: 10}, (_, i) => i + 1);
+
+
+  onLogout():void{
+    deleteCookie('token')
+    this.router.navigate(['/login']);
+  }
+}

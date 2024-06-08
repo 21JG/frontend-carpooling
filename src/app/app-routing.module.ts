@@ -10,6 +10,7 @@ import {PassengerSignUpComponent} from "./components/passenger-sign-up/passenger
 import {userGuard} from "./token/guard/user-guard.guard";
 import {RouteDetailComponent} from "./components/route-detail/routedetail.component";
 import { VehicleRegistrationComponent } from './components/vehicle-register/vehicle-register.component';
+import {RouteCreationComponent} from "./components/route-creation/routecreation.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
       {
         path:'routes',
         component:RoutesComponent,
+        canActivate: [userGuard],
+      },
+      {
+        path:'routecreation',
+        component:RouteCreationComponent,
         canActivate: [userGuard],
       },
       {

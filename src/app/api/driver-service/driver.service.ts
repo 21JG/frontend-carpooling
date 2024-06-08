@@ -11,7 +11,7 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 
-export class driverService{
+export class DriverService{
 
 
   constructor(private http: HttpClient) {}
@@ -33,8 +33,8 @@ export class driverService{
         firstSurname: 'string',
         secondSurname: 'string',
         password: 'string',
-        phone: 'string',
         companyEmail: 'string',
+        phone: 'string',
         rol:0,
       },
     }
@@ -43,11 +43,14 @@ export class driverService{
   createDriver(driverForm:DriverModel):Observable<any>{
     // return this.http.post<any>(`${DOMAIN_URL}/api/v1/carpooling/driver`,driverForm);
     return this.http.post<any>(`/api/v1/carpooling-uco/driver`,driverForm);
-
   }
 
-  getDriver(){
-    return this.http.get<DriverModel>(`${DOMAIN_URL}/api/v1/carpooling-uco/driver`)
+  getDriver(): Observable<DriverModel[]> {
+    return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/driver`).pipe(
+      map(response => {
+        return response.data[0];
+      })
+    );
   }
   getAuthorizedCategory():Observable<AuthorizedCategoryModel[]>{
     return this.http.get<any>(`${DOMAIN_URL}/api/v1/carpooling-uco/authorizedcategory`).pipe(

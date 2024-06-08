@@ -1,0 +1,134 @@
+.agm-map{
+  height: 86vh;
+  width: 95%;
+  display: flex;
+  justify-content: end;
+}
+
+.routes-card {
+  z-index: 10;
+  position: absolute;
+  margin: 5px;
+  top: 3px;
+  right: 25px;
+  width: 45%;
+  height: 45%;
+  background-color: forestgreen;
+  border-radius: 20px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  color: #232323;
+}
+.route-item{
+  background-color: #ffffffe8;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 3px;
+  font-size: small;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.absolute-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  overflow-y: auto; /* Add scroll if content overflows vertically */
+}
+.route-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 10px;
+}
+.scrollable-list {
+  overflow-y: auto;  /* Add a vertical scrollbar if the content overflows */
+  max-height: 200px; /* Set a maximum height for the scrollable area */
+}
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+}
+
+.custom-progress-bar ::ng-deep .mat-progress-bar-background {
+  background-color: #ffffff; /* Replace with your desired color */
+}
+
+.green-circle-icon {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  margin-top: 5px;
+  background-color: green;
+  border-radius: 50%;
+  padding: 20px; /* Adjust as needed to make it larger */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; /* Optional: add a cursor pointer for better UX */
+}
+
+.driver-card {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 3.8em;
+}
+.driver-card p {
+  width: 45%; /* Cada elemento ocupe la el 45% del ancho del contenedor */
+  box-sizing: border-box; /* Asegura que el ancho incluya el padding y el borde */
+}
+
+
+.points-of-interest-container {
+  background-color: snow;
+  max-height: 30em;
+  min-height: 16em; /* Altura máxima antes de que aparezca el scrollbar */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.points-of-interest-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.point-of-interest {
+  padding: 0.4em 0;
+  border-bottom: 1.5px solid #eee; /* Añade una línea divisoria entre puntos de interés */
+}
+
+.point-of-interest:last-child {
+  border-bottom: black; /* Elimina la línea divisoria del último elemento */
+}
+.button-success {
+  color: white;
+  width: 250px; /* Cambia el valor según tus necesidades */
+  font-size: 24px; /* Ajusta el tamaño de fuente si es necesario */
+  background-color: green; /* Cambia el color de fondo a verde */
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+/* En styles.css */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";

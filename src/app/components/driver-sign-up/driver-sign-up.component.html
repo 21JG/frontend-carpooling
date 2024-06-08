@@ -26,6 +26,10 @@
       <mat-label>Segundo Apellido</mat-label>
       <input matInput formControlName="secondSurname" type="text">
     </mat-form-field>
+<!--    <mat-form-field>-->
+<!--      <mat-label>Licencia</mat-label>-->
+<!--      <input matInput formControlName="licenseNumber" type="number">-->
+<!--    </mat-form-field>-->
 
     <input class="controls" type="text" name="licencia" placeholder="Numero Licencia" formControlName="licenseNumber">
     <div *ngIf="DriverForm.controls['licenseNumber'].invalid && DriverForm.controls['licenseNumber'].touched">
@@ -61,7 +65,7 @@
     </mat-form-field>
 
     <!-- <button mat-raised-button color="terciario" class="sign-up-button" (click)="signUpDriver()">Sign Up</button> -->
-    
+
     <button mat-raised-button  color="terciario" class="sign-up-button" (click)="signUpDriver()" [disabled]="!DriverForm.get('category').value ">Send</button>
 
     <div> <a routerLink="/intro" class="btn btn-success">Volver</a> </div>

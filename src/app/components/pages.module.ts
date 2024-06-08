@@ -23,6 +23,14 @@ import {SharedModule} from "../shared/shared.module";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {RouteDetailComponent} from "./route-detail/routedetail.component";
 import { VehicleRegistrationComponent } from "./vehicle-register/vehicle-register.component";
+import {RouteCreationComponent} from "./route-creation/routecreation.component";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSelectModule} from "@angular/material/select";
+import {AppRoutingModule} from "../app-routing.module";
+
 
 
 const Pages=[
@@ -34,6 +42,7 @@ const Pages=[
   OptionComponent,
   PassengerSignUpComponent,
   VehicleRegistrationComponent,
+  RouteCreationComponent,
 ]
 
 @NgModule({
@@ -57,7 +66,12 @@ const Pages=[
     NgIf,
     MatChipsModule,
     MatLegacyChipsModule,
-
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    AppRoutingModule,
   ],
   exports:[Pages],
 })

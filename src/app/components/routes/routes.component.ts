@@ -2,11 +2,13 @@ import {ChangeDetectorRef, Component, NgZone, OnInit, ViewChild} from "@angular/
 import {RouteModel} from "../../models/route.model";
 import {LoginService} from "../../api/login-service/login.service";
 import {Router} from "@angular/router";
-import {deleteCookie} from "../../token/utils/cooke.utils";
+import {decrypt, deleteCookie, getCookie} from "../../token/utils/cooke.utils";
 import {RouteActiveModel} from "../../models/routeactive";
 import {RoutesService} from "../../api/routes-service/routes-service";
 import {MapComponent} from "../../shared/map/map.component";
 import {PositionModel} from "../../models/position.model";
+import {DriverService} from "../../api/driver-service/driver.service";
+import {Subscription} from "rxjs";
 
 
 
@@ -19,13 +21,17 @@ import {PositionModel} from "../../models/position.model";
 export class RoutesComponent implements OnInit{
 
 
-  loading: boolean = false; // Add this line to define the loading property
+  loading: boolean = false;
 
   @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
 
   activeRoutes: RouteActiveModel[] = [];
+  email: string | null = null;
+  isDriver: boolean = false; // Agregar esta propiedad
+  private subscriptions = new Subscription();
 
-  constructor(private router: Router,private route: RoutesService, private cdr: ChangeDetectorRef,  private zone: NgZone) {}
+
+  constructor(private router: Router,private route: RoutesService,private driver: DriverService, private cdr: ChangeDetectorRef,  private zone: NgZone) {}
 
   // ngOnInit(): void {
   //   this.route-detail.getActiveRoutes().subscribe(
@@ -66,6 +72,7 @@ export class RoutesComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.checkDriverEmail();
     this.loading = true; // Set loading to true before making the API call
 
     this.route.getActiveRoutes().subscribe(
@@ -142,7 +149,7 @@ export class RoutesComponent implements OnInit{
 
       },
       () => {
-        this.loading = false; // Set loading to false when the data is loaded (complete callback)
+        this.loading = false;
       }
     );
   }
@@ -159,7 +166,27 @@ export class RoutesComponent implements OnInit{
       });
     });
   }
+  checkDriverEmail(): void {
+    this.email = decrypt(getCookie('1P_JAR2'));
 
+    this.subscriptions.add(
+      this.driver.getDriver().subscribe(
+        driverResponse => {
+          const driversArray = driverResponse;
+          const driver = driversArray.find(d => d.customer && d.customer.companyEmail === this.email);
+          if (driver && driver.customer.companyEmail === this.email) {
+            this.isDriver = true;
+          } else {
+            this.isDriver = false;
+          }
+        },
+        error => {
+          console.error('Error fetching driver data:', error);
+          this.isDriver = false;
+        }
+      )
+    );
+  }
 
   // Update the type of the 'coordinates' parameter in the geocodeCoordinates function
   private geocodeCoordinates(coordinates: PositionModel, callback: (address: string) => void): void {
@@ -187,9 +214,17 @@ export class RoutesComponent implements OnInit{
 
 
 
+
+
   getRouteDetail(id:string):void{
     this.router.navigate(['/routedetail',id]);
   }
+  getRouteCreation():void{
+    this.router.navigate(['/routecreation']);
+  }
+  // getDrivers():void{
+  //   this.router.navigate()
+  // }
 
   // private geocodeCoordinates(coordinates: { latitude: number; longitude: number }, callback: (address: string) => void): void {
   //   const geocoder = new google.maps.Geocoder();
@@ -208,6 +243,9 @@ export class RoutesComponent implements OnInit{
   //   });
   // }
 
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 
 
 
