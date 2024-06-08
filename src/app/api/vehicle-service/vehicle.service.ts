@@ -51,8 +51,28 @@ export class VehicleService {
     return this.http.delete(`api/v1/carpooling-uco/vehicle/${vehicleId}`);
   }
 
-  getCarsPerDriver(){
-    this.cadena = 'api/v1/carpooling-uco/vehicle';
-    return this.http.get<VehicleModel>(this.cadena);
+  // getCarsPerDriver(driverID:string):Observable<any>{
+  //   this.cadena = 'api/v1/carpooling-uco/vehicle';
+  //   const token = getCookie('token');
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //   });
+  //   return this.http.get<VehicleModel>(this.cadena);
+  // }
+  getCarsPerDriver(vehicleId: string): Observable<VehicleModel> {
+    // Construct the URL with the vehicle ID
+    const url = `api/v1/carpooling-uco/vehicle/${vehicleId}`;
+
+    // Get the authorization token from the cookie
+    const token = getCookie('token');
+
+    // Set the request headers
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'accept': '*/*' // You can adjust the accept header as needed
+    });
+
+    // Make the HTTP GET request with headers
+    return this.http.get<VehicleModel>(url, { headers: headers });
   }
 }

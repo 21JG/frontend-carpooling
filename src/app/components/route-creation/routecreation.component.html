@@ -3,7 +3,6 @@
     <div>
       <img src="assets/img/Logo.jpg" alt="Logo Carpooling" class="logo">
     </div>
-
     <div class="">
       <a (click)="onLogout()" class="btn button-success" style="color: white;">LogOut</a>
     </div>
@@ -11,16 +10,13 @@
 </header>
 
 <div style="display: flex; height: 100%; width: 100%; margin-top: 8px;">
-  <!-- Contenedor del mapa con flex de 70% y centrado -->
   <div style="flex: 65%; display: flex; align-items: end; justify-content: end; height: 100%;">
     <div style="width: 100%; max-width: 100%; height: 100%; max-height: 50%; position: relative;">
-      <app-map *ngIf="loadingMap" [markers]="markers" #mapita class="agm-map"></app-map>
+      <app-map *ngIf="loadingMap" [markers]="markers" (mapClick)="handleMapClick($event)" #mapita class="agm-map"></app-map>
     </div>
   </div>
 
-  <!-- Contenedor del acordeón con flex de 30%, contenido centrado -->
   <div style="flex: 35%; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
-    <!-- Título agregado encima del acordeón -->
     <div style="text-align: center; width: 100%; margin-bottom: 10px;">
       <span class="routes-card-title"><strong style="color: white; font-size: x-large;">Rutas</strong></span>
     </div>
@@ -35,124 +31,94 @@
             <mat-icon>account_circle</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        1.Define tu punto de partida y destino: Utiliza la barra de búsqueda para seleccionar dónde comenzará y terminará tu viaje. Puedes utilizar direcciones exactas o puntos de interés.
+        1. Define tu punto de partida y destino: Utiliza el mapa para seleccionar dónde comenzará y terminará tu viaje. Puedes utilizar direcciones exactas o puntos de interés.
         <br>
         <br>
-        2.Elige la fecha y la hora de salida: Selecciona cuándo te gustaría partir.
+        2. Elige la fecha y la hora de salida: Selecciona cuándo te gustaría partir.
         <br>
         <br>
-        3.Número de asientos disponibles: Indica cuántos asientos ofreces.
+        3. Número de asientos disponibles: Indica cuántos asientos ofreces.
         <br>
         <br>
-        4.Confirma y publica tu ruta: Revisa toda la información, y si todo está correcto, ¡publica tu ruta! Los usuarios interesados podrán verla y solicitar unirse a tu viaje.
+        4. Confirma y publica tu ruta: Revisa toda la información, y si todo está correcto, ¡publica tu ruta! Los usuarios interesados podrán verla y solicitar unirse a tu viaje.
         <br>
-        <br>
-        <mat-checkbox [(ngModel)]="termsAccepted">Acepto términos y condiciones</mat-checkbox>
+        <br>        <mat-checkbox [(ngModel)]="termsAccepted">Acepto términos y condiciones</mat-checkbox>
         <mat-action-row>
-          <button mat-button color="primary" (click)="nextStep()" [disabled]="!termsAccepted">Next</button>
+          <button mat-button color="primary" (click)="nextStep()" [disabled]="!termsAccepted">Siguiente</button>
         </mat-action-row>
       </mat-expansion-panel>
 
+      <!-- En el panel donde se selecciona el punto de partida y destino -->
       <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Partida
           </mat-panel-title>
           <mat-panel-description>
-            Seleccion un punto de energia
+            En el mapa selecciona un punto
+            <br>
+            de partida y un punto de destino
             <mat-icon>map</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field>
-          <mat-label>Country</mat-label>
-          <input matInput>
-        </mat-form-field>
+        <!-- Botón para reiniciar los puntos de la ruta -->
+        <!-- Información actualizada de los puntos de partida y destino -->
+        <p>Punto de partida:</p>
+        <p>Latitud: {{ routeRequestOriginLatitude }}</p>
+        <p>Longitud: {{ routeRequestOriginLongitude }}</p>
+        <p>Punto de destino:</p>
+        <p>Latitud: {{ routeRequestEndLatitude }}</p>
+        <p>Longitud: {{ routeRequestEndLongitude }}</p>
 
+        <!-- Botones de navegación -->
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="warn" (click)="prevStep()">Atrás</button>
+          <button mat-button color="primary" (click)="nextStep()" [disabled]="nextButtonDisabled">Siguiente</button>
         </mat-action-row>
       </mat-expansion-panel>
 
       <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Destino
+            Detalles del viaje
           </mat-panel-title>
           <mat-panel-description>
-            Seleccione el destino
-            <mat-icon>map</mat-icon>
+            Información adicional
+            <mat-icon>done_all</mat-icon>
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <mat-form-field>
-          <mat-label>Country</mat-label>
-          <input matInput>
-        </mat-form-field>
+        <form [formGroup]="RouteCreationForm">
+          <!-- Capacidad -->
+          <div style="text-align: center;">
+            <p style="font-size: large; margin-bottom: 5px;">Capacidad</p>
+            <mat-form-field>
+              <mat-label>Selecciona la capacidad</mat-label>
+              <mat-select formControlName="routeCapacity">
+                <mat-option *ngFor="let capacity of capacities" [value]="capacity">
+                  {{ capacity }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
+          <!-- Hora del viaje -->
+          <div style="text-align: center;">
+            <p style="font-size: large; margin-bottom: 5px;">Hora del viaje</p>
+            <mat-form-field>
+              <mat-label>Selecciona la hora del viaje</mat-label>
+              <input matInput type="datetime-local" formControlName="routeTime">
+            </mat-form-field>
+          </div>
+        </form>
+
+        <!-- Botones de navegación -->
         <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Previous</button>
-          <button mat-button color="primary" (click)="nextStep()">Next</button>
+          <button mat-button color="warn" (click)="prevStep()">Atrás</button>
+          <button mat-button color="primary" (click)="createRoute()">Guardar</button>
         </mat-action-row>
       </mat-expansion-panel>
-
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Fecha y Hora
-          </mat-panel-title>
-          <mat-panel-description>
-            Seleccione la fecha y hora
-            <mat-icon>date_range</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <!-- Agregar campos de fecha y hora -->
-        <mat-form-field>
-          <mat-label>Fecha</mat-label>
-          <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Hora</mat-label>
-          <input matInput type="time" [(ngModel)]="selectedTime" step="60">
-        </mat-form-field>
-
-
-        <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Anterior</button>
-          <button mat-button color="primary" (click)="nextStep()">Finalizar</button>
-        </mat-action-row>
-      </mat-expansion-panel>
-
-      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Capacidad
-          </mat-panel-title>
-          <mat-panel-description>
-            Seleccione los cupos disponibles
-            <mat-icon>event_seat</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-
-        <!-- Agregar campo de capacidad -->
-        <mat-form-field>
-          <mat-label>Cupos disponibles</mat-label>
-          <mat-select [(ngModel)]="selectedCapacity">
-            <mat-option *ngFor="let capacity of capacities" [value]="capacity">{{ capacity }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-action-row>
-          <button mat-button color="warn" (click)="prevStep()">Anterior</button>
-          <button mat-button color="primary" (click)="nextStep()">Finalizar</button>
-        </mat-action-row>
-      </mat-expansion-panel>
-
 
     </mat-accordion>
   </div>

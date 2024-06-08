@@ -1,11 +1,12 @@
 import {CustomerModel} from "./customer.model";
+import {DriverpervehicleModel} from "./driverpervehicle.model";
 
 export interface RouteRequestModel {
   id?: string;
-  serviceRequestTime?: string;
-  serviceRequestDate?: string;
-  customer?: CustomerModel;
-  status?: string;
-  routeRequestOrigin?: string;
-  routeRequestEnd?: string;
+  DriverVehicle?: DriverpervehicleModel;
+  routeRequestOriginLatitude?: string;
+  routeRequestOriginLongitude?: string;
+  routeRequestEndLatitude?: string;
+  routeRequestEndLongitude?: string;
+  routeCapacity?: number;
 }
